@@ -3,7 +3,6 @@ import { Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import ItemCard from '../components/ItemCard';
-// import { getTweets } from '../api/tweets';
 
 export default function List() {
   const navigate = useNavigate();
