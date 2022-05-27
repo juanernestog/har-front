@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './components/Header';
 
@@ -14,7 +14,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Header />
       <Container>
         <Row>
@@ -39,7 +39,7 @@ function App() {
           </Col>
         </Row>
       </Container>
-    </>
+    </BrowserRouter>
   );
 }
 

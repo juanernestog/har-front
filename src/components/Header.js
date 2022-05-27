@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NavUser from './NavUser';
 
@@ -15,7 +15,6 @@ export default function Header() {
           <Nav className="me-auto">
             <Link to="/create" className="nav-link"></Link>
           </Nav>
-          <NavUser />
         </Navbar.Collapse>
       </Container>
       <Nav.Item>
@@ -26,7 +25,7 @@ export default function Header() {
       <Link to="/signup" className="nav-link">
         Nosotros
       </Link>
-      <Link to="/signin" className="nav-link">
+      <Link to="/login" className="nav-link">
         Contactenos
       </Link>
       {/* <Nav.Item>
@@ -35,14 +34,12 @@ export default function Header() {
         </Nav.Link>
       </Nav.Item> */}
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+        <Form.Group className="mb-3" controlId="SearchBar">
+          <Form.Label>Busqueda</Form.Label>
+          <Form.Control type="email" placeholder="Buscar" />
         </Form.Group>
       </Form>
+      <NavUser />
     </Navbar>
   );
 }
