@@ -8,7 +8,7 @@ export default function NavUser() {
       <Link to="/signup" className="nav-link">
         Registrarme
       </Link>
-      <Link to="/signin" className="nav-link">
+      <Link to="/login" className="nav-link">
         Ingresar
       </Link>
     </Nav>
