@@ -23,10 +23,10 @@ export default function Header() {
             Inicio
           </Nav.Link>
         </Nav.Item>
-        <Link to="/signup" className="nav-link">
+        <Link to="/about" className="nav-link">
           Nosotros
         </Link>
-        <Link to="/login" className="nav-link">
+        <Link to="/contact" className="nav-link">
           Contactenos
         </Link>
         {/* <Nav.Item>
@@ -37,7 +37,7 @@ export default function Header() {
         <Form>
           <Form.Group className="mb-3" controlId="SearchBar">
             <Form.Label>Busqueda</Form.Label>
-            <Form.Control type="email" placeholder="Buscar" />
+            <Form.Control type="product" placeholder="Buscar" />
           </Form.Group>
         </Form>
         <NavUser />
