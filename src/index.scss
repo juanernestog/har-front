@@ -1,0 +1,21 @@
+/* abstracts */
+@import './styles/abstracts/variables';
+//@import './styles/abstracts/mixins';
+
+/* base */
+//@import './styles/base/base';
+@import './styles/base/resets';
+
+/* components */
+@import './styles/components/Header.scss';
+//@import './styles/components/Button.scss';
+//@import './styles/components/SideBar.scss';
+
+/* global */
+.primary-color {
+  color: rgb(227, 242, 231);
+}
+
+.App {
+  display: flex;
+}
