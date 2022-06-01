@@ -1,0 +1,17 @@
+button {
+  display: inline-block;
+  padding: 0.2rem 0.1rem;
+  border: 0.3rem transparentize($color: #d1d1d1, $amount: 0) rgb(131, 218, 8);
+  border-radius: 1rem;
+  background-color: hsla(134, 85%, 47%, 0.976);
+  color: #000;
+  font-size: 0.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  // text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: #eee;
+  }
+}
