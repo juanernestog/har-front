@@ -11,7 +11,7 @@ export default function Header() {
           <Link to="/" className="navbar-brand">
             Harvestify
           </Link>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Link to="/create" className="nav-link"></Link>
