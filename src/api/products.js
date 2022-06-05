@@ -14,6 +14,21 @@ function transformProduct(item) {
   };
 }
 
+export async function getProducts() {
+  return await http.get(`/products`).then((response) => {
+    const { data: json } = response;
+
+    const transformedData = json.data.map((item) => {
+      return transformProduct(item);
+    });
+
+    return {
+      data: transformedData,
+      meta: json.meta,
+    };
+  });
+}
+
 export function getProduct({ id }) {
   return http.get(`/products/${id}`).then((response) => {
     const { data: json } = response;

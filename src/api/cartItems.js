@@ -14,6 +14,21 @@ export function transformCartItem(item) {
   };
 }
 
+export async function getCartItems() {
+  return await http.get(`/cartItems`).then((response) => {
+    const { data: json } = response;
+
+    const transformedData = json.data.map((item) => {
+      return transformCartItem(item);
+    });
+
+    return {
+      data: transformedData,
+      meta: json.meta,
+    };
+  });
+}
+
 export function getCartItem({ id }) {
   return http.get(`/cartItems/${id}`).then((response) => {
     const { data: json } = response;
