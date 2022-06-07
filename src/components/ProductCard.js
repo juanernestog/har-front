@@ -2,7 +2,7 @@ import React from 'react';
 
 import Card from 'react-bootstrap/Card';
 
-export default function TweetCard({ product = {}, content = '', date = '' }) {
+export default function ProductCard({ product = {}, content = '', date = '' }) {
   return (
     <Card className="mt-3">
       <Card.Body>
