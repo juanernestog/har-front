@@ -1,21 +1,27 @@
 import React from 'react';
 
-import Card from 'react-bootstrap/Card';
+import { Button, Card } from 'react-bootstrap';
 
-export default function ProductCard({ product = {}, content = '', date = '' }) {
+export default function ProductCard({
+  producer = {},
+  name = '',
+  price = '',
+  unit = '',
+}) {
   return (
-    <Card className="mt-3">
+    <Card className="text-center" style={{ width: '18rem' }}>
+      <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>
-          {product.name}
+          {name}
           <span className="text-muted">
-            ${product.cost} / {product.unit}
+            ${price} / {unit}
           </span>
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {product.location}
+          {producer.name}
         </Card.Subtitle>
-        <Card.Text>{product.image}</Card.Text>
+        <Button variant="primary">Añadir al carrito</Button>
       </Card.Body>
     </Card>
   );

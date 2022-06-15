@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-import ItemCard from '../components/ItemCard';
+import ProductCard from '../components/ProductCard';
+import useProducts from '../hooks/useProducts';
 
 export default function List() {
   const navigate = useNavigate();
 
-  const [data, setData] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const { data, error, loading } = useProducts();
+
+  function onDisplayProduct(event, id) {
+    event.stopPropagation();
+    navigate(`products/${id}`);
+  }
 
   if (loading) {
     return (
@@ -25,11 +29,16 @@ export default function List() {
       {data.map((item) => (
         <div
           key={item.id}
-          onClick={function(event) {
-            navigate(`/item/${item.id}`);
+          onClick={function (event) {
+            onDisplayProduct(item.id, event);
           }}
         >
-          <ItemCard user={item.user} content={item.content} date={item.date} />
+          <ProductCard
+            producer={item.producer}
+            name={item.name}
+            price={item.price}
+            unit={item.unit}
+          />
         </div>
       ))}
     </>
