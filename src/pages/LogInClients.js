@@ -23,9 +23,9 @@ export default function LogIn() {
         password: password.value,
       });
       dispatch({ type: 'FULLFILLED' });
-
+      json.data.type = 'client';
       setUser(json.data);
-      navigate('/');
+      navigate(`/`);
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
     }
