@@ -47,6 +47,12 @@ export default function Create() {
           <Form.Control type="text" name="quantity" />
           <Form.Label>Category</Form.Label>
           <Form.Control type="text" name="category" />
+          <Form.Label>Price</Form.Label>
+          <Form.Control type="text" name="price" />
+          <Form.Label>Unit</Form.Label>
+          <Form.Control type="text" name="unit" />
+          <Form.Label>Image</Form.Label>
+          <Form.Control type="text" name="image" />
         </Form.Group>
         <Button variant="primary" type="submit" disabled={loading}>
           Crear

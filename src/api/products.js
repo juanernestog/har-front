@@ -8,6 +8,7 @@ function transformProduct(item) {
     category: item.category,
     price: item.price,
     unit: item.unit,
+    image: item.image,
     producer: {
       name: item.userId.name,
     },

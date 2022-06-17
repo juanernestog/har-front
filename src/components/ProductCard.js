@@ -7,10 +7,11 @@ export default function ProductCard({
   name = '',
   price = '',
   unit = '',
+  image = '',
 }) {
   return (
     <Card className="text-center" style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={image} />
       <Card.Body>
         <Card.Title>
           {name}
