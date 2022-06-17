@@ -3,6 +3,7 @@ import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 import { UserProvider } from './containers/UserContext';
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -37,6 +38,7 @@ export default function App() {
               </React.Suspense>
             </Col>
           </Row>
+          <Footer />
         </Container>
       </BrowserRouter>
     </UserProvider>
