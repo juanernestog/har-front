@@ -8,9 +8,13 @@ import { UserProvider } from './containers/UserContext';
 
 const Home = React.lazy(() => import('./pages/Home'));
 // const NotFound = React.lazy(() => import('./pages/NotFound'));
+const Signup = React.lazy(() => import('./pages/Signup'));
+const SignupProducers = React.lazy(() => import('./pages/SignupProducers'));
 const LogIn = React.lazy(() => import('./pages/LogIn'));
 const LogInClients = React.lazy(() => import('./pages/LogInClients'));
 const LogInProducers = React.lazy(() => import('./pages/LogInProducers'));
+const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
+const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 
 export default function App() {
   return (
@@ -31,9 +35,16 @@ export default function App() {
               >
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route
+                    path="/signup/producers"
+                    element={<SignupProducers />}
+                  />
                   <Route path="/login" element={<LogIn />} />
                   <Route path="/login/clients" element={<LogInClients />} />
                   <Route path="/login/producers" element={<LogInProducers />} />
+                  <Route path="/producers/:id" element={<ProducerProfile />} />
+                  <Route path="/createProduct" element={<CreateProduct />} />
                 </Routes>
               </React.Suspense>
             </Col>
