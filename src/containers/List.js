@@ -11,7 +11,6 @@ export default function List() {
   const { data, error, loading } = useProducts();
 
   function onDisplayProduct(event, id) {
-    event.stopPropagation();
     navigate(`products/${id}`);
   }
 
@@ -26,21 +25,23 @@ export default function List() {
   return (
     <>
       {error && <Alert variant="danger">={error}</Alert>}
-      {data.map((item) => (
-        <div
-          key={item.id}
-          onClick={function (event) {
-            onDisplayProduct(item.id, event);
-          }}
-        >
-          <ProductCard
-            producer={item.producer}
-            name={item.name}
-            price={item.price}
-            unit={item.unit}
-          />
-        </div>
-      ))}
+      <div className="d-flex justify-content-around mb-3">
+        {data.map((item) => (
+          <div
+            key={item.id}
+            onClick={function (event) {
+              onDisplayProduct(item.id, event);
+            }}
+          >
+            <ProductCard
+              producer={item.producer}
+              name={item.name}
+              price={item.price}
+              unit={item.unit}
+            />
+          </div>
+        ))}
+      </div>
     </>
   );
 }
