@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
@@ -17,10 +17,30 @@ const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 
 export default function App() {
+  console.log(window.location);
+
+  const [invalidPage, setInvalidPage] = React.useState(false);
+  const functioningRoutes = [
+    '/',
+    '/login',
+    '/login-clients',
+    '/login-producers',
+    `/about`,
+    `/contact`,
+  ];
+  useEffect(() => {
+    if (functioningRoutes.includes(window.location.pathname)) {
+      console.log('Invalid page', window.location.pathname);
+      setInvalidPage(false);
+    } else {
+      setInvalidPage(true);
+    }
+  }, []);
+
   return (
     <UserProvider>
       <BrowserRouter>
-        <Header />
+        {!invalidPage && <Header />}
         <Container>
           <Row>
             <Col>
@@ -49,7 +69,7 @@ export default function App() {
               </React.Suspense>
             </Col>
           </Row>
-          <Footer />
+          {!invalidPage && <Footer />}
         </Container>
       </BrowserRouter>
     </UserProvider>

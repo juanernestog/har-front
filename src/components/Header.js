@@ -5,7 +5,7 @@ import NavUser from './NavUser';
 
 export default function Header() {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="md">
       <Container className="d-inline-block align-middle">
         <Link to="/" className="navbar-brand">
           Harvestify
