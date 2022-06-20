@@ -8,7 +8,6 @@ function transformProducer(item) {
     name: item.name,
     email: item.email,
     tel: item.tel,
-    productsCount: item.productsCount ?? 0,
     products: Array.isArray(item.products)
       ? item.products.map(transformProduct)
       : [],
@@ -38,7 +37,7 @@ export async function signUp(payload) {
   });
 }
 
-export async function getProducer({ id }) {
+export async function getProducer(id) {
   const response = await http.get(`/producers/${id}`);
   const { data: json } = response;
   return {
