@@ -15,6 +15,7 @@ const LogInClients = React.lazy(() => import('./pages/LogInClients'));
 const LogInProducers = React.lazy(() => import('./pages/LogInProducers'));
 const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
+const LogOut = React.lazy(() => import('./pages/LogOut'));
 
 export default function App() {
   console.log(window.location);
@@ -63,6 +64,7 @@ export default function App() {
                 <Route path="/login/producers" element={<LogInProducers />} />
                 <Route path="/producers/:id" element={<ProducerProfile />} />
                 <Route path="/createProduct" element={<CreateProduct />} />
+                <Route path="/logout" element={<LogOut />} />
               </Routes>
             </React.Suspense>
           </Col>
