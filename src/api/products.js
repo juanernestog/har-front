@@ -58,3 +58,12 @@ export function updateProduct(payload) {
     };
   });
 }
+
+export function deleteProduct({ id }) {
+  return http.delete(`/products/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformProduct(json.data),
+    };
+  });
+}
