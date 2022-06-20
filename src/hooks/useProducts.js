@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import { getProducts, updateProduct } from '../api/products';
 
 export default function useProducts() {
-  const { data, error, mutate } = useSWR(`/tweets`, getProducts);
+  const { data, error, mutate } = useSWR(`/products`, getProducts);
 
   async function update(payload) {
     const response = await updateProduct(payload);

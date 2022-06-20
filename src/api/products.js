@@ -1,6 +1,6 @@
 import http from './http';
 
-function transformProduct(item) {
+export function transformProduct(item) {
   return {
     id: item._id,
     name: item.name,
@@ -8,6 +8,7 @@ function transformProduct(item) {
     category: item.category,
     price: item.price,
     unit: item.unit,
+    image: item.image,
     producer: {
       name: item.userId.name,
     },
@@ -39,8 +40,8 @@ export function getProduct({ id }) {
   });
 }
 
-export function createProduct({ content }) {
-  return http.post(`/products`, { content }).then((response) => {
+export function createProduct(content) {
+  return http.post(`/products`, content).then((response) => {
     const { data: json } = response;
     return {
       data: transformProduct(json.data),
