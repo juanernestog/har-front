@@ -9,7 +9,7 @@ export default function ProducerProfile() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useContext(UserContext);
-  const { data, error, loading } = useProfile({ id });
+  const { data, error, loading } = useProfile(id);
 
   function onDisplayProduct(event, id) {
     event.stopPropagation();
@@ -40,22 +40,24 @@ export default function ProducerProfile() {
         <h1 className="display-5 fw-bold">{data.name}</h1>
         <div className="col-lg-6 mx-auto">
           <h2>Mis productos</h2>
-          {data.products.map((item) => (
-            <div
-              className="d-flex justify-content-around"
-              key={item.id}
-              onClick={function (event) {
-                onDisplayProduct(item.id, event);
-              }}
-            >
-              <ProductCard
-                producer={item.producer}
-                name={item.name}
-                price={item.price}
-                unit={item.unit}
-              />
-            </div>
-          ))}
+          <div className="d-flex flex-wrap justify-content-around">
+            {data.products.map((item) => (
+              <div
+                key={item.id}
+                onClick={function (event) {
+                  onDisplayProduct(item.id, event);
+                }}
+              >
+                <ProductCard
+                  producer={item.producer}
+                  name={item.name}
+                  price={item.price}
+                  unit={item.unit}
+                  picture={item.picture}
+                />
+              </div>
+            ))}
+          </div>
           <Button as={Link} variant="primary" to="/createProduct">
             Crear Producto
           </Button>
