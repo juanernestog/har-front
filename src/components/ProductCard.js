@@ -10,13 +10,13 @@ export default function ProductCard({
   picture = '',
 }) {
   return (
-    <Card className="text-center" style={{ width: '18rem' }}>
+    <Card className="text-center" style={{ width: '10rem' }}>
       <Card.Img variant="top" src={picture} />
       <Card.Body>
         <Card.Title>
           {name}
+          <br />
           <span className="text-muted">
-            {' '}
             ${price} / {unit}
           </span>
         </Card.Title>
