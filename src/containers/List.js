@@ -38,6 +38,7 @@ export default function List() {
               name={item.name}
               price={item.price}
               unit={item.unit}
+              picture={item.picture}
             />
           </div>
         ))}
