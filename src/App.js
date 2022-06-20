@@ -24,10 +24,12 @@ export default function App() {
     const functioningRoutes = [
       '/',
       '/login',
-      '/login-clients',
-      '/login-producers',
+      '/login/clients',
+      '/login/producers',
       `/about`,
       `/contact`,
+      `/producers/:id`,
+      `/createProduct`,
     ];
     if (functioningRoutes.includes(window.location.pathname)) {
       console.log('Invalid page', window.location.pathname);
