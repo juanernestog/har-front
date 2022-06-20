@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <Card.Footer
       color="blue"
-      class="font-small pt-4 mt-4 position-relative fixed-bottom bg-light"
+      className="font-small pt-4 mt-4 position-relative fixed-bottom bg-light"
     >
       <Container fluid className="text-center text-md-left">
         <Row>
