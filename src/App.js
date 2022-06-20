@@ -9,6 +9,7 @@ import { UserProvider } from './containers/UserContext';
 const Home = React.lazy(() => import('./pages/Home'));
 // const NotFound = React.lazy(() => import('./pages/NotFound'));
 const Signup = React.lazy(() => import('./pages/Signup'));
+const SignupClients = React.lazy(() => import('./pages/SignupClients'));
 const SignupProducers = React.lazy(() => import('./pages/SignupProducers'));
 const LogIn = React.lazy(() => import('./pages/LogIn'));
 const LogInClients = React.lazy(() => import('./pages/LogInClients'));
@@ -58,6 +59,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/signup/clients" element={<SignupClients />} />
                 <Route path="/signup/producers" element={<SignupProducers />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/login/clients" element={<LogInClients />} />
