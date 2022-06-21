@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { createCart } from '../api/carts';
 
 import { logIn } from '../api/clients';
+import CartContext from '../containers/CartContext';
 import UserContext from '../containers/UserContext';
 import useFetchState from '../hooks/useFetchState';
 
 export default function LogIn() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const { setCart } = useContext(CartContext);
   const [{ error, loading }, dispatch] = useFetchState();
 
   async function onSubmit(event) {
@@ -22,9 +25,14 @@ export default function LogIn() {
         email: email.value,
         password: password.value,
       });
+      const cart = await createCart({
+        userId: json.data._id,
+        address: 'empty',
+      });
       dispatch({ type: 'FULLFILLED' });
       json.data.type = 'client';
       setUser(json.data);
+      setCart(cart.data);
       navigate(`/`);
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
