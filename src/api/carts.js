@@ -10,10 +10,10 @@ function transformCart(item) {
     address: item.address,
     deliveryPrice: item.deliveryPrice,
     total: item.total,
-    createdAt: item.createdAt,
     cartItems: Array.isArray(item.cartItems)
       ? item.cartItems.map(transformCartItem)
       : [],
+    cartItemsCount: item.cartItemsCount,
   };
 }
 
@@ -26,13 +26,20 @@ export function getCart({ id }) {
   });
 }
 
-export function createCart({ content }) {
-  return http.post(`/carts`, { content }).then((response) => {
-    const { data: json } = response;
-    return {
-      data: transformCart(json.data),
-    };
-  });
+export function createCart({
+  address = '',
+  userId = '',
+  deliveryPrice = 0,
+  total = 0,
+}) {
+  return http
+    .post(`/carts`, { address, userId, deliveryPrice, total })
+    .then((response) => {
+      const { data: json } = response;
+      return {
+        data: transformCart(json.data),
+      };
+    });
 }
 
 export function updateCart(payload) {
