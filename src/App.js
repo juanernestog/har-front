@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { UserProvider } from './containers/UserContext';
+import { CartProvider } from './containers/CartContext';
 
 const Home = React.lazy(() => import('./pages/Home'));
 // const NotFound = React.lazy(() => import('./pages/NotFound'));
@@ -43,36 +44,41 @@ export default function App() {
 
   return (
     <UserProvider>
-      {!invalidPage && <Header />}
-      <Container>
-        <Row>
-          <Col>
-            <React.Suspense
-              fallback={
-                <div>
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                </div>
-              }
-            >
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/signup/clients" element={<SignupClients />} />
-                <Route path="/signup/producers" element={<SignupProducers />} />
-                <Route path="/login" element={<LogIn />} />
-                <Route path="/login/clients" element={<LogInClients />} />
-                <Route path="/login/producers" element={<LogInProducers />} />
-                <Route path="/producers/:id" element={<ProducerProfile />} />
-                <Route path="/createProduct" element={<CreateProduct />} />
-                <Route path="/logout" element={<LogOut />} />
-              </Routes>
-            </React.Suspense>
-          </Col>
-        </Row>
-        {!invalidPage && <Footer />}
-      </Container>
+      <CartProvider>
+        {!invalidPage && <Header />}
+        <Container>
+          <Row>
+            <Col>
+              <React.Suspense
+                fallback={
+                  <div>
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </div>
+                }
+              >
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/signup/clients" element={<SignupClients />} />
+                  <Route
+                    path="/signup/producers"
+                    element={<SignupProducers />}
+                  />
+                  <Route path="/login" element={<LogIn />} />
+                  <Route path="/login/clients" element={<LogInClients />} />
+                  <Route path="/login/producers" element={<LogInProducers />} />
+                  <Route path="/producers/:id" element={<ProducerProfile />} />
+                  <Route path="/createProduct" element={<CreateProduct />} />
+                  <Route path="/logout" element={<LogOut />} />
+                </Routes>
+              </React.Suspense>
+            </Col>
+          </Row>
+          {!invalidPage && <Footer />}
+        </Container>
+      </CartProvider>
     </UserProvider>
   );
 }
