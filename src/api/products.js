@@ -8,7 +8,7 @@ export function transformProduct(item) {
     category: item.category,
     price: item.price,
     unit: item.unit,
-    image: item.image,
+    picture: item.picture,
     producer: {
       name: item.userId.name,
     },
@@ -52,6 +52,15 @@ export function createProduct(content) {
 export function updateProduct(payload) {
   const { id } = payload;
   return http.put(`/products/${id}`, payload).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformProduct(json.data),
+    };
+  });
+}
+
+export function deleteProduct({ id }) {
+  return http.delete(`/products/${id}`).then((response) => {
     const { data: json } = response;
     return {
       data: transformProduct(json.data),

@@ -1,11 +1,21 @@
 import React, { useContext } from 'react';
 import { Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import CartContext from '../containers/CartContext';
 import UserContext from '../containers/UserContext';
+import Cart from './Cart';
 
 export default function NavUser() {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const { cart } = useContext(CartContext);
+
+  function displayCart(event, id) {
+    event.preventDefault();
+    navigate(`/carts/${id}`);
+  }
+
   if (user?.type === 'producer') {
     return (
       <Nav className="nav">
@@ -20,9 +30,11 @@ export default function NavUser() {
   } else if (user?.type === 'client') {
     return (
       <Nav className="nav">
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        <Cart
+          count={cart.cartItemsCount}
+          onClick={function (event) {
+            displayCart(event, cart.id);
+          }}
         />
         <Link to={`/clients/${user.id}`} className="nav-link">
           {user.name} <i className="fas fa-user-plus"></i>

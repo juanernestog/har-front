@@ -8,7 +8,6 @@ function transformProducer(item) {
     name: item.name,
     email: item.email,
     tel: item.tel,
-    productsCount: item.productsCount ?? 0,
     products: Array.isArray(item.products)
       ? item.products.map(transformProduct)
       : [],
