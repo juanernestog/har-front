@@ -25,11 +25,12 @@ export default function SignUp() {
       setError('');
       setLoading(true);
       await signUp(values);
-      setLoading(false);
       navigate('/');
       setSubmitting(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 

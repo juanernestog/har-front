@@ -27,8 +27,7 @@ export default function Footer() {
                 <a href="/contact"> Contactanos </a>
               </li>
               <li className="list-unstyled">
-                <p> Linea de atencion: </p>
-                <br />
+                <p> Linea de atencion:</p>
                 <a href="tel:+573008989898"> 3008989898 </a>
               </li>
             </ul>
