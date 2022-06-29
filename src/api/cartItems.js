@@ -38,13 +38,15 @@ export function getCartItem({ id }) {
   });
 }
 
-export function createCartItem(payload) {
-  return http.post(`/cartItems`, payload).then((response) => {
-    const { data: json } = response;
-    return {
-      data: transformCartItem(json.data),
-    };
-  });
+export function createCartItem({ cartId = '', productId = '', quantity = 0 }) {
+  return http
+    .post(`/cartItems`, { cartId, productId, quantity })
+    .then((response) => {
+      const { data: json } = response;
+      return {
+        data: transformCartItem(json.data),
+      };
+    });
 }
 
 export function updateCartItem(payload) {

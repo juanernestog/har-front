@@ -1,23 +1,31 @@
-import React from 'react';
-import { Alert, Spinner } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-import ProductCard from '../components/ProductCard';
+import { createCartItem } from '../api/cartItems';
 import useProducts from '../hooks/useProducts';
+import CartContext from './CartContext';
 
 export default function List() {
+  const { data, error, loading } = useProducts();
+  const { cart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const { data, error, loading } = useProducts();
-
-  function onDisplayProduct(event, id) {
-    navigate(`products/${id}`);
+  async function onSubmit(event, item) {
+    event.preventDefault();
+    cart
+      ? await createCartItem({
+          quantity: event.target.quantity.value,
+          cartId: cart.id,
+          productId: item.id,
+        })
+      : navigate('/login');
   }
 
   if (loading) {
     return (
       <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
+        <span className="visually-hidden">Cargando</span>
       </Spinner>
     );
   }
@@ -27,19 +35,40 @@ export default function List() {
       {error && <Alert variant="danger">={error}</Alert>}
       <div className="d-flex flex-wrap justify-content-around mb-3">
         {data.map((item) => (
-          <div
-            key={item.id}
-            onClick={function (event) {
-              onDisplayProduct(item.id, event);
-            }}
-          >
-            <ProductCard
-              producer={item.producer}
-              name={item.name}
-              price={item.price}
-              unit={item.unit}
-              picture={item.picture}
-            />
+          <div key={item.id}>
+            <Card className="text-center" style={{ width: '10rem' }}>
+              <Card.Img
+                style={{ objectFit: 'contain' }}
+                height="100px"
+                variant="top"
+                src={item.picture}
+              />
+              <Card.Body>
+                <Card.Title>
+                  {item.name}
+                  <br />
+                  <span className="text-muted">
+                    ${item.price} / {item.unit}
+                  </span>
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {item.producer.name}
+                </Card.Subtitle>
+                <Form
+                  onSubmit={function (event) {
+                    onSubmit(event, item);
+                  }}
+                >
+                  <Form.Group className="mb-3">
+                    <Form.Label>Cantidad</Form.Label>
+                    <Form.Control type="text" name="quantity" />
+                  </Form.Group>
+                  <Button variant="primary" type="submit" disabled={loading}>
+                    Agregar
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
           </div>
         ))}
       </div>
