@@ -14,14 +14,13 @@ const SignupClients = React.lazy(() => import('./pages/SignupClients'));
 const SignupProducers = React.lazy(() => import('./pages/SignupProducers'));
 const LogIn = React.lazy(() => import('./pages/LogIn'));
 const LogInClients = React.lazy(() => import('./pages/LogInClients'));
+const Cart = React.lazy(() => import('./pages/Cart'));
 const LogInProducers = React.lazy(() => import('./pages/LogInProducers'));
 const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 
 export default function App() {
-  console.log(window.location);
-
   const [invalidPage, setInvalidPage] = React.useState(false);
   useEffect(() => {
     const functioningRoutes = [
@@ -35,7 +34,6 @@ export default function App() {
       `/createProduct`,
     ];
     if (functioningRoutes.includes(window.location.pathname)) {
-      console.log('Invalid page', window.location.pathname);
       setInvalidPage(false);
     } else {
       setInvalidPage(true);
@@ -71,6 +69,7 @@ export default function App() {
                   <Route path="/login/producers" element={<LogInProducers />} />
                   <Route path="/producers/:id" element={<ProducerProfile />} />
                   <Route path="/createProduct" element={<CreateProduct />} />
+                  <Route path="/carts/:id" element={<Cart />} />
                   <Route path="/logout" element={<LogOut />} />
                 </Routes>
               </React.Suspense>
