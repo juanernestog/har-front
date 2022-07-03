@@ -3,23 +3,28 @@ import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import { createCartItem } from '../api/cartItems';
+import { getCart } from '../api/carts';
 import useProducts from '../hooks/useProducts';
 import CartContext from './CartContext';
 
 export default function List() {
   const { data, error, loading } = useProducts();
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   async function onSubmit(event, item) {
     event.preventDefault();
-    cart
-      ? await createCartItem({
-          quantity: event.target.quantity.value,
-          cartId: cart.id,
-          productId: item.id,
-        })
-      : navigate('/login');
+    if (cart) {
+      await createCartItem({
+        quantity: event.target.quantity.value,
+        cartId: cart.id,
+        productId: item.id,
+      });
+      const response = await getCart({ id: cart.id });
+      setCart(response.data);
+    } else {
+      navigate('/login');
+    }
   }
 
   if (loading) {
