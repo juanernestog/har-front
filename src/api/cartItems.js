@@ -8,6 +8,7 @@ export function transformCartItem(item) {
       category: item.productId.category,
       unit: item.productId.unit,
       price: item.productId.price,
+      picture: item.productId.picture,
     },
     quantity: item.quantity,
     createdAt: item.createdAt,
@@ -52,6 +53,15 @@ export function createCartItem({ cartId = '', productId = '', quantity = 0 }) {
 export function updateCartItem(payload) {
   const { id } = payload;
   return http.put(`/cartItems/${id}`, payload).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformCartItem(json.data),
+    };
+  });
+}
+
+export function deleteCartItem({ id }) {
+  return http.delete(`/cartItems/${id}`).then((response) => {
     const { data: json } = response;
     return {
       data: transformCartItem(json.data),
