@@ -8,7 +8,12 @@ export function transformProduct(item) {
     category: item.category,
     price: item.price,
     unit: item.unit,
-    picture: item.picture,
+    picture: {
+      ...item.picture,
+      path: item.picture?.path
+        ? `${process.env.REACT_APP_SERVER_URL}/${item.picture.path}`
+        : '',
+    },
     producer: {
       name: item.userId.name,
     },

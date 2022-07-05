@@ -18,6 +18,15 @@ export default function Create() {
     const { name, quantity, category, price, unit, picture } =
       event.target.elements;
 
+    const formData = new FormData();
+
+    formData.append('name', name.value);
+    formData.append('quantity', quantity.value);
+    formData.append('category', category.value);
+    formData.append('price', price.value);
+    formData.append('unit', unit.value);
+    formData.append('picture', picture.files[0]);
+
     try {
       setError('');
       setLoading(true);
@@ -57,7 +66,11 @@ export default function Create() {
           <Form.Label>Unidad</Form.Label>
           <Form.Control type="text" name="unit" />
           <Form.Label>Foto</Form.Label>
-          <Form.Control type="text" name="picture" />
+          <Form.Control
+            type="file"
+            name="picture"
+            accept="image/jpeg, image/png"
+          />
         </Form.Group>
         <Button variant="primary" type="submit" disabled={loading}>
           Crear

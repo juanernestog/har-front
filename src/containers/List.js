@@ -46,7 +46,7 @@ export default function List() {
                 style={{ objectFit: 'contain' }}
                 height="100px"
                 variant="top"
-                src={item.picture}
+                src={item.picture.path}
               />
               <Card.Body>
                 <Card.Title>
