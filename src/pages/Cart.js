@@ -37,7 +37,7 @@ export default function Cart() {
 
   return (
     <>
-      {/* {error && <Alert variant="danger">={error}</Alert>} */}
+      {/* {error && <Alert variant="danger">{error}</Alert>} */}
       {cart.cartItems?.map((item) => (
         <div key={item.id}>
           <Card className="text-center" style={{ width: '10rem' }}>

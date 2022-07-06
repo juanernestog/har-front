@@ -26,7 +26,7 @@ export default function ProducerProfile() {
 
   return (
     <>
-      {error && <Alert variant="danger">={error}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
       {user?.id === data.id && (
         <Button
           as={Link}
