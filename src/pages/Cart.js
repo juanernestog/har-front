@@ -45,7 +45,7 @@ export default function Cart() {
               style={{ objectFit: 'contain' }}
               height="100px"
               variant="top"
-              src={item.product?.picture}
+              src={item.product?.picture.path}
             />
             <Card.Body>
               <Card.Title>

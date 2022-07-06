@@ -44,7 +44,7 @@ export default function ProducerProfile() {
             {data.products.map((item) => (
               <div key={item.id}>
                 <Card className="text-center" style={{ width: '10rem' }}>
-                  <Card.Img variant="top" src={item.picture} />
+                  <Card.Img variant="top" src={item.picture.path} />
                   <Card.Body>
                     <Card.Title>
                       {item.name}
