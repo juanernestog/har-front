@@ -27,17 +27,28 @@ export default function ProducerProfile() {
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
-      {user?.id === data.id && (
-        <Button
-          as={Link}
-          className="btn btn-primary mt-4"
-          to="/producers/profile"
-        >
-          Editar Perfil
-        </Button>
-      )}
+      <div>
+        <h1 className="">Perfil</h1>
+        <p className="">
+          <strong>Nombre:</strong> {data.name}
+        </p>
+        <p className="">
+          <strong>Email:</strong> {data.email}
+        </p>
+        <p className="">
+          <strong>Teléfono:</strong> {data.tel}
+        </p>
+        {user?.id === data.id && (
+          <Button
+            as={Link}
+            className="btn btn-primary mt-4"
+            to="/producers/profile"
+          >
+            Editar Perfil
+          </Button>
+        )}
+      </div>
       <div className="px-4 py-4 my-5 text-center">
-        <h1 className="display-5 fw-bold">{data.name}</h1>
         <div className="mx-auto">
           <h2>Productos</h2>
           <div className="d-flex flex-wrap justify-content-around">
@@ -53,8 +64,16 @@ export default function ProducerProfile() {
                         ${item.price} / {item.unit}
                       </span>
                     </Card.Title>
-                    <Button variant="primary">Editar</Button>
+                    <Card.Subtitle>{item.category}</Card.Subtitle>
                     <Button
+                      className="m-3"
+                      variant="primary"
+                      onClick={navigate()}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      lassName="m-3"
                       variant="danger"
                       onClick={function (event) {
                         removeProduct(event, item.id);

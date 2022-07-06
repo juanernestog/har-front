@@ -31,15 +31,7 @@ export default function Create() {
       setError('');
       setLoading(true);
 
-      await createProduct({
-        name: name.value,
-        quantity: quantity.value,
-        category: category.value,
-        price: price.value,
-        unit: unit.value,
-        picture: picture.value,
-        userId: user._id,
-      });
+      await createProduct(formData);
 
       setLoading(false);
       navigate(`/producers/${user._id}`);

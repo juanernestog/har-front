@@ -7,10 +7,20 @@ export default function SignUp() {
     <>
       <h2 className="my-4">Registrase</h2>
       <div className="d-flex justify-content-center">
-        <Button as={Link} variant="primary" to="/signup/clients">
+        <Button
+          className="m-5"
+          as={Link}
+          variant="primary"
+          to="/signup/clients"
+        >
           Cliente
         </Button>
-        <Button as={Link} variant="primary" to="/signup/producers">
+        <Button
+          className="m-5"
+          as={Link}
+          variant="primary"
+          to="/signup/producers"
+        >
           Productor
         </Button>
       </div>
