@@ -38,7 +38,7 @@ export default function ProducerProfile() {
         <p className="">
           <strong>Teléfono:</strong> {data.tel}
         </p>
-        {user?.id === data.id && (
+        {user.id === data.id && (
           <Button
             as={Link}
             className="btn btn-primary mt-4"
@@ -55,7 +55,7 @@ export default function ProducerProfile() {
             {data.products.map((item) => (
               <div key={item.id}>
                 <Card className="text-center" style={{ width: '10rem' }}>
-                  <Card.Img variant="top" src={item.picture.path} />
+                  <Card.Img variant="top" src={item.picture?.path} />
                   <Card.Body>
                     <Card.Title>
                       {item.name}
@@ -65,15 +65,11 @@ export default function ProducerProfile() {
                       </span>
                     </Card.Title>
                     <Card.Subtitle>{item.category}</Card.Subtitle>
-                    <Button
-                      className="m-3"
-                      variant="primary"
-                      onClick={navigate()}
-                    >
+                    <Button className="m-3" variant="primary">
                       Editar
                     </Button>
                     <Button
-                      lassName="m-3"
+                      className="m-3"
                       variant="danger"
                       onClick={function (event) {
                         removeProduct(event, item.id);
