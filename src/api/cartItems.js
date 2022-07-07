@@ -8,7 +8,12 @@ export function transformCartItem(item) {
       category: item.productId.category,
       unit: item.productId.unit,
       price: item.productId.price,
-      picture: item.productId.picture,
+      picture: {
+        ...item.productId.picture,
+        path: item.productId.picture?.path
+          ? `${process.env.REACT_APP_SERVER_URL}/${item.productId.picture.path}`
+          : '',
+      },
     },
     quantity: item.quantity,
     createdAt: item.createdAt,
