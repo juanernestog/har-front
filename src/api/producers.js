@@ -3,6 +3,7 @@ import { transformProduct } from './products';
 
 function transformProducer(item) {
   return {
+    id: item._id,
     firstname: item.firstname,
     lastname: item.lastname,
     name: item.name,
