@@ -23,9 +23,8 @@ export default function LogIn() {
         password: password.value,
       });
       dispatch({ type: 'FULLFILLED' });
-      json.data.type = 'producer';
       setUser(json.data);
-      navigate(`/producers/${json.data._id}`);
+      navigate(`/producers/${json.data.id}`);
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
     }

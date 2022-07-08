@@ -12,6 +12,7 @@ function transformProducer(item) {
     products: Array.isArray(item.products)
       ? item.products.map(transformProduct)
       : [],
+    type: 'producer',
   };
 }
 
@@ -24,7 +25,7 @@ export async function logIn({ email, password }) {
     }
 
     return {
-      data: json.data,
+      data: transformProducer(json.data),
     };
   });
 }
@@ -33,7 +34,7 @@ export async function signUp(payload) {
   return http.post(`/producers/signup`, payload).then((response) => {
     const { data: json } = response;
     return {
-      data: json.data,
+      data: transformProducer(json.data),
     };
   });
 }
@@ -44,4 +45,13 @@ export async function getProducer({ id }) {
   return {
     data: transformProducer(json.data),
   };
+}
+
+export async function updateProducer(id, payload) {
+  return http.put(`/producers/${id}`, payload).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformProducer(json.data),
+    };
+  });
 }
