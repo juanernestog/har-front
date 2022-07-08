@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { Alert, Button, Card, Spinner } from 'react-bootstrap';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { deleteProduct } from '../api/products';
 import UserContext from '../containers/UserContext';
 import useProfile from '../hooks/useProfileProducers';
 
 export default function ProducerProfile() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const { data, error, loading } = useProfile({ id });
@@ -42,7 +41,7 @@ export default function ProducerProfile() {
           <Button
             as={Link}
             className="btn btn-primary mt-4"
-            to="/producers/profile"
+            to={`/producers/profile/${id}`}
           >
             Editar Perfil
           </Button>
