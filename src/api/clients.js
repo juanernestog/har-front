@@ -8,6 +8,7 @@ function transformClient(item) {
     name: item.name,
     email: item.email,
     tel: item.tel,
+    type: 'client',
   };
 }
 
@@ -20,7 +21,7 @@ export async function logIn({ email, password }) {
     }
 
     return {
-      data: json.data,
+      data: transformClient(json.data),
     };
   });
 }
@@ -29,7 +30,7 @@ export async function signUp(payload) {
   return http.post(`/clients/signup`, payload).then((response) => {
     const { data: json } = response;
     return {
-      data: json.data,
+      data: transformClient(json.data),
     };
   });
 }
