@@ -38,7 +38,7 @@ export default function List() {
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="d-flex flex-wrap justify-content-around mb-3">
+      <div className="d-flex flex-wrap justify-content-around mb-3 mt-3">
         {data.map((item) => (
           <div key={item.id}>
             <Card className="text-center" style={{ width: '10rem' }}>
