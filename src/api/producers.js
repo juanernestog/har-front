@@ -55,3 +55,12 @@ export async function updateProducer(id, payload) {
     };
   });
 }
+
+export async function deleteProducer({ id }) {
+  return http.delete(`/producers/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformProducer(json.data),
+    };
+  });
+}
