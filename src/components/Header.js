@@ -6,13 +6,13 @@ import NavUser from './NavUser';
 export default function Header() {
   return (
     <Navbar bg="dark" variant="dark" expand="md">
-      <Container className="d-inline-block align-middle">
+      <Container className="align-middle">
         <Navbar.Brand as={Link} to="/">
           Harvestify
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto mt-3">
+          <Nav className="me-auto">
             <Nav.Link as={Link} to="/">
               Inicio
             </Nav.Link>
