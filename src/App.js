@@ -23,6 +23,7 @@ const EditProfileProducer = React.lazy(() =>
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
+const About = React.lazy(() => import('./pages/About'));
 
 export default function App() {
   const [invalidPage, setInvalidPage] = React.useState(false);
@@ -80,6 +81,7 @@ export default function App() {
                   <Route path="/carts/:id" element={<Cart />} />
                   <Route path="/logout" element={<LogOut />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<About />} />
                 </Routes>
               </React.Suspense>
             </Col>
