@@ -32,29 +32,39 @@ export default function LogIn() {
 
   return (
     <>
-      <h2 className="my-4">Iniciar Sesión</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
-      <Form onSubmit={onSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Escribe tu email"
-            name="email"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Escribe tu contraseña"
-            name="password"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit" disabled={loading}>
-          Entrar
-        </Button>
-      </Form>
+      <div
+        style={{
+          margin: 'auto',
+          marginTop: '1rem',
+          width: '30%',
+          border: '3px solid green',
+          padding: '10px',
+        }}
+      >
+        <h2 className="my-4 text-center">Iniciar Sesión</h2>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form onSubmit={onSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Escribe tu email"
+              name="email"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Escribe tu contraseña"
+              name="password"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit" disabled={loading}>
+            Entrar
+          </Button>
+        </Form>
+      </div>
     </>
   );
 }
