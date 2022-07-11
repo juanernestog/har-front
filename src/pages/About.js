@@ -9,11 +9,11 @@ export default function About() {
         Harvestify es una empresa que ofrece una plataforma de compra y venta de
         productos agrícolas.{' '}
       </p>
-      <p> Nos enontramos en las ciudades de Medellin y Bogotá, Colombia. </p>
+      <p> Nos encontramos en las ciudades de Medellín y Bogotá, Colombia. </p>
       <p>
         {' '}
         Nos enorgullece ayudar a todos los usuarios de nuestra plataforma.
-        Clientes y productores nustro compromiso es que sea mejor para tidos la
+        Clientes y productores nuestro compromiso es que sea mejor para todos la
         comercializacion directa{' '}
       </p>
     </>
