@@ -26,7 +26,7 @@ export default function LogIn() {
         password: password.value,
       });
       const cart = await createCart({
-        userId: json.data._id,
+        userId: json.data.id,
         address: 'empty',
       });
       dispatch({ type: 'FULLFILLED' });

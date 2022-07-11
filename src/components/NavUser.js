@@ -30,6 +30,11 @@ export default function NavUser() {
   } else if (user?.type === 'client') {
     return (
       <Nav className="nav">
+        {/* <Form>
+              <Form.Group className="mb-3 nav-search-bar" controlId="SearchBar">
+                <Form.Control type="product" placeholder="Buscar" />
+              </Form.Group>
+            </Form> */}
         <Cart
           count={cart.cartItemsCount}
           onClick={function (event) {

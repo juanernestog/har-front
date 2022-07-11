@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { Alert, Button, Card, Spinner } from 'react-bootstrap';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { deleteProduct } from '../api/products';
 import UserContext from '../containers/UserContext';
 import useProfile from '../hooks/useProfileProducers';
 
 export default function ProducerProfile() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const { data, error, loading } = useProfile({ id });
@@ -38,11 +37,11 @@ export default function ProducerProfile() {
         <p className="">
           <strong>Teléfono:</strong> {data.tel}
         </p>
-        {user?.id === data.id && (
+        {user.id === data.id && (
           <Button
             as={Link}
             className="btn btn-primary mt-4"
-            to="/producers/profile"
+            to={`/producers/profile/${id}`}
           >
             Editar Perfil
           </Button>
@@ -55,7 +54,7 @@ export default function ProducerProfile() {
             {data.products.map((item) => (
               <div key={item.id}>
                 <Card className="text-center" style={{ width: '10rem' }}>
-                  <Card.Img variant="top" src={item.picture.path} />
+                  <Card.Img variant="top" src={item.picture?.path} />
                   <Card.Body>
                     <Card.Title>
                       {item.name}
@@ -65,15 +64,11 @@ export default function ProducerProfile() {
                       </span>
                     </Card.Title>
                     <Card.Subtitle>{item.category}</Card.Subtitle>
-                    <Button
-                      className="m-3"
-                      variant="primary"
-                      onClick={navigate()}
-                    >
+                    <Button className="m-3" variant="primary">
                       Editar
                     </Button>
                     <Button
-                      lassName="m-3"
+                      className="m-3"
                       variant="danger"
                       onClick={function (event) {
                         removeProduct(event, item.id);

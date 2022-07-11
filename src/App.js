@@ -17,6 +17,9 @@ const LogInClients = React.lazy(() => import('./pages/LogInClients'));
 const Cart = React.lazy(() => import('./pages/Cart'));
 const LogInProducers = React.lazy(() => import('./pages/LogInProducers'));
 const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
+const EditProfileProducer = React.lazy(() =>
+  import('./pages/EditProfileProducer'),
+);
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
@@ -69,6 +72,10 @@ export default function App() {
                   <Route path="/login/clients" element={<LogInClients />} />
                   <Route path="/login/producers" element={<LogInProducers />} />
                   <Route path="/producers/:id" element={<ProducerProfile />} />
+                  <Route
+                    path="/producers/profile/:id"
+                    element={<EditProfileProducer />}
+                  />
                   <Route path="/createProduct" element={<CreateProduct />} />
                   <Route path="/carts/:id" element={<Cart />} />
                   <Route path="/logout" element={<LogOut />} />
