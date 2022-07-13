@@ -34,7 +34,7 @@ export default function Create() {
       await createProduct(formData);
 
       setLoading(false);
-      navigate(`/producers/${user._id}`);
+      navigate(`/producers/${user.id}`);
     } catch (error) {
       setError(error);
       setLoading(false);
