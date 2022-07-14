@@ -18,6 +18,7 @@ const LogInClients = React.lazy(() => import('./pages/LogInClients'));
 const Cart = React.lazy(() => import('./pages/Cart'));
 const LogInProducers = React.lazy(() => import('./pages/LogInProducers'));
 const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
+const ClientProfile = React.lazy(() => import('./pages/ClientProfile'));
 const EditProfileProducer = React.lazy(() =>
   import('./pages/EditProfileProducer'),
 );
@@ -37,6 +38,7 @@ export default function App() {
       `/about`,
       `/contact`,
       `/producers/:id`,
+      `/clients/:id`,
       `/createProduct`,
     ];
     if (functioningRoutes.includes(window.location.pathname)) {
@@ -91,6 +93,7 @@ export default function App() {
                       path="/producers/:id"
                       element={<ProducerProfile />}
                     />
+                    <Route path="/clients/:id" element={<ClientProfile />} />
                     <Route
                       path="/producers/profile/:id"
                       element={<EditProfileProducer />}
