@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { createProduct } from '../api/products';
 import UserContext from '../containers/UserContext';
@@ -45,29 +45,59 @@ export default function Create() {
     <>
       <h2 className="my-4">Crear un producto</h2>
       {error && <Alert variant="danger">{error}</Alert>}
-      <Form onSubmit={onSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control type="text" name="name" />
-          <Form.Label>Cantidad</Form.Label>
-          <Form.Control type="text" name="quantity" />
-          <Form.Label>Categoría</Form.Label>
-          <Form.Control type="text" name="category" />
-          <Form.Label>Precio</Form.Label>
-          <Form.Control type="text" name="price" />
-          <Form.Label>Unidad</Form.Label>
-          <Form.Control type="text" name="unit" />
-          <Form.Label>Foto</Form.Label>
-          <Form.Control
-            type="file"
-            name="picture"
-            accept="image/jpeg, image/png"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit" disabled={loading}>
-          Crear
-        </Button>
-      </Form>
+      <Container>
+        <Row>
+          <Col sm={6}>
+            <Form onSubmit={onSubmit}>
+              <Form.Group className="mb-1">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control type="text" name="name" />
+              </Form.Group>
+              <Form.Group className="mb-1">
+                <Form.Label>Cantidad</Form.Label>
+                <Form.Control type="text" name="quantity" />
+              </Form.Group>
+              <Form.Group className="mb-1">
+                <Form.Label>Categoría</Form.Label>
+                <br />
+                <Form.Select className="form-select" name="category">
+                  <option>Seleccionar categoría</option>
+                  <option value="Fruta">Fruta</option>
+                  <option value="Verdura">Verdura</option>
+                  <option value="Lácteos y Huevos">Lácteos y Huevos</option>
+                  <option value="Otro">Otro</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-1">
+                <Form.Label>Unidad</Form.Label>
+                <Form.Control type="text" name="unit" />
+              </Form.Group>
+              <Form.Group className="mb-1">
+                <Form.Label>Precio</Form.Label>
+                <Form.Control type="text" name="price" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Foto</Form.Label>
+                <Form.Control
+                  type="file"
+                  name="picture"
+                  accept="image/jpeg, image/png"
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" disabled={loading}>
+                Crear
+              </Button>
+              <Button
+                as={Link}
+                to={`/producers/${user.id}`}
+                variant="outline-primary mx-3"
+              >
+                Cancelar
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
