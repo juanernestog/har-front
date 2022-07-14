@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import { logIn } from '../api/producers';
@@ -28,6 +28,24 @@ export default function LogIn() {
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
     }
+  }
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
+    );
   }
 
   return (

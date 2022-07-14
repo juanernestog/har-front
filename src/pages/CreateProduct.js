@@ -1,5 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import {
+  Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { createProduct } from '../api/products';
@@ -39,6 +47,24 @@ export default function Create() {
       setError(error);
       setLoading(false);
     }
+  }
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
+    );
   }
 
   return (

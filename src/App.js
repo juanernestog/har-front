@@ -56,7 +56,17 @@ export default function App() {
               <Col>
                 <React.Suspense
                   fallback={
-                    <div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'fixed',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                    >
                       <Spinner animation="border" role="status">
                         <span className="visually-hidden">Cargando...</span>
                       </Spinner>
