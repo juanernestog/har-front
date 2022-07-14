@@ -36,7 +36,7 @@ export default function ProducerProfile() {
       {error && <Alert variant="danger">{error}</Alert>}
       <Container>
         <Row>
-          <Col sm={2} className="px-4 py-4 my-5 text-center">
+          <Col sm={4} className="px-4 py-4 my-5 text-center">
             <h1 className="">Perfil</h1>
             <p className="">
               <strong>Nombre:</strong> {data.name}
@@ -57,7 +57,7 @@ export default function ProducerProfile() {
               </Button>
             )}
           </Col>
-          <Col sm={10} className="px-4 py-4 my-5 text-center">
+          <Col sm={8} className="px-4 py-4 my-5 text-center">
             <div className="mx-auto">
               <h2>Productos</h2>
               <div className="d-flex flex-wrap justify-content-around">
