@@ -53,7 +53,7 @@ export default function NavUser() {
     return (
       <Nav className="nav">
         <Link to="/signup" className="nav-link">
-          Registrarme <i className="fas fa-user-plus"></i>
+          Registrarme
         </Link>
         <Link to="/login" className="nav-link">
           Ingresar
