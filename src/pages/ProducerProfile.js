@@ -74,7 +74,12 @@ export default function ProducerProfile() {
                 {data.products.map((item) => (
                   <div key={item.id}>
                     <Card className="text-center" style={{ width: '10rem' }}>
-                      <Card.Img variant="top" src={item.picture?.path} />
+                      <Card.Img
+                        style={{ objectFit: 'contain' }}
+                        height="100px"
+                        variant="top"
+                        src={item.picture?.path}
+                      />
                       <Card.Body>
                         <Card.Title>
                           {item.name}
@@ -101,9 +106,16 @@ export default function ProducerProfile() {
                   </div>
                 ))}
               </div>
-              <Button as={Link} variant="primary" to="/createProduct">
-                Crear Producto
-              </Button>
+              {user.id === data.id && (
+                <Button
+                  className="m-3"
+                  as={Link}
+                  variant="primary"
+                  to="/createProduct"
+                >
+                  Crear Producto
+                </Button>
+              )}
             </div>
           </Col>
         </Row>
