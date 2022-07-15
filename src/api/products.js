@@ -21,8 +21,8 @@ export function transformProduct(item) {
   };
 }
 
-export async function getProducts() {
-  return await http.get(`/products`).then((response) => {
+export async function getProducts(url) {
+  return await http.get(url).then((response) => {
     const { data: json } = response;
 
     const transformedData = json.data.map((item) => {
@@ -45,8 +45,8 @@ export function getProduct({ id }) {
   });
 }
 
-export function createProduct(content) {
-  return http.post(`/products`, content).then((response) => {
+export function createProduct(payload) {
+  return http.post(`/products`, payload).then((response) => {
     const { data: json } = response;
     return {
       data: transformProduct(json.data),

@@ -1,33 +1,13 @@
 import useSWR from 'swr';
 
-import { getProducts, updateProduct } from '../api/products';
+import { getProducts } from '../api/products';
 
-export default function useProducts() {
-  const { data, error, mutate } = useSWR(`/products`, getProducts);
-
-  async function update(payload) {
-    const response = await updateProduct(payload);
-
-    mutate(
-      {
-        data: data.data.map(function (item) {
-          if (item.id === payload.id) {
-            return response.data;
-          }
-          return item;
-        }),
-        meta: data.meta,
-      },
-      false,
-    );
-  }
-
+export default function useProducts(page) {
+  const { data, error } = useSWR(`/products?page=${page}`, getProducts);
   return {
     data: data?.data,
+    meta: data?.meta,
     error,
     loading: !error && !data,
-    actions: {
-      update,
-    },
   };
 }

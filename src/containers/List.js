@@ -1,5 +1,12 @@
-import React, { useContext } from 'react';
-import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  Pagination,
+  Spinner,
+} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import { createCartItem } from '../api/cartItems';
@@ -8,7 +15,8 @@ import useProducts from '../hooks/useProducts';
 import CartContext from './CartContext';
 
 export default function List() {
-  const { data, error, loading } = useProducts();
+  const [page, setPage] = useState(1);
+  const { data, meta, error, loading } = useProducts(page);
   const { cart, setCart } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -27,11 +35,36 @@ export default function List() {
     }
   }
 
+  let items = [<Pagination.Prev key="prev" />];
+  let active = meta?.page;
+  for (let number = 1; number <= meta?.pages; number++) {
+    items.push(
+      <Pagination.Item
+        key={number}
+        active={number === active}
+        onClick={() => setPage(number)}
+      >
+        {number}
+      </Pagination.Item>,
+    );
+  }
+  items.push(<Pagination.Next key="next" />);
+
   if (loading) {
     return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Cargando</span>
-      </Spinner>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
     );
   }
 
@@ -40,8 +73,12 @@ export default function List() {
       {error && <Alert variant="danger">{error}</Alert>}
       <div className="d-flex flex-wrap justify-content-around mb-3 mt-3">
         {data.map((item) => (
-          <div key={item.id}>
-            <Card className="text-center" style={{ width: '10rem' }}>
+          <div
+            className="d-flex justify-content-center"
+            key={item.id}
+            style={{ flexBasis: '20%' }}
+          >
+            <Card className="text-center my-3" style={{ width: '10rem' }}>
               <Card.Img
                 style={{ objectFit: 'contain' }}
                 height="100px"
@@ -66,7 +103,13 @@ export default function List() {
                 >
                   <Form.Group className="mb-3">
                     <Form.Label>Cantidad</Form.Label>
-                    <Form.Control type="text" name="quantity" />
+                    <br />
+                    <Form.Control
+                      type="number"
+                      min="1"
+                      name="quantity"
+                      style={{ width: '5rem', margin: 'auto' }}
+                    />
                   </Form.Group>
                   <Button variant="primary" type="submit" disabled={loading}>
                     Agregar
@@ -77,6 +120,11 @@ export default function List() {
           </div>
         ))}
       </div>
+      {meta?.pages > 1 && (
+        <div className="d-flex justify-content-center">
+          <Pagination>{items}</Pagination>
+        </div>
+      )}
     </>
   );
 }
