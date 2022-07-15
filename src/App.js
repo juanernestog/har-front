@@ -68,7 +68,7 @@ export default function App() {
                       }}
                     >
                       <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Cargando...</span>
+                        <span className="visually-hidden"></span>
                       </Spinner>
                     </div>
                   }
