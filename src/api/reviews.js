@@ -26,3 +26,25 @@ export function updateReview(payload) {
     };
   });
 }
+
+export function getReviews({ id }) {
+  return http.get(`/reviews/${id}`).then((response) => {
+    const { data: json } = response;
+    const transformedData = json.data.map((item) => {
+      return transformReview(item);
+    });
+    return {
+      data: transformedData,
+      meta: json.meta,
+    };
+  });
+}
+
+export function deleteReview({ id }) {
+  return http.delete(`/reviews/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformReview(json.data),
+    };
+  });
+}
