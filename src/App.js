@@ -26,6 +26,7 @@ const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const About = React.lazy(() => import('./pages/About'));
+const Review = React.lazy(() => import('./pages/Review'));
 
 export default function App() {
   const [invalidPage, setInvalidPage] = React.useState(false);
@@ -40,6 +41,13 @@ export default function App() {
       `/producers/:id`,
       `/clients/:id`,
       `/createProduct`,
+      `/logout`,
+      `/cart`,
+      `/editProfileProducer`,
+      `/createProduct`,
+      `/logout`,
+      `/reviews/:id`,
+      `/reviews`,
     ];
     if (functioningRoutes.includes(window.location.pathname)) {
       setInvalidPage(false);
@@ -103,6 +111,7 @@ export default function App() {
                     <Route path="/logout" element={<LogOut />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/reviews" element={<Review />} />
                   </Routes>
                 </React.Suspense>
               </Col>
