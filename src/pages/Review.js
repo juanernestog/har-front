@@ -3,6 +3,7 @@ import {
   Alert,
   Button,
   Card,
+  CardImg,
   Col,
   Container,
   Row,
@@ -48,6 +49,23 @@ export default function Review() {
     }
   }
 
+  const stars = {
+    size: 60,
+    count: 5,
+    color: 'yellow',
+    activeColor: 'green',
+    char: '★',
+    value: 7.5,
+    a11y: true,
+    isHalf: true,
+    emptyIcon: <i className="far fa-star" />,
+    halfIcon: <i className="fa fa-star-half-alt" />,
+    filledIcon: <i className="fa fa-star" />,
+    onChange: (newValue) => {
+      console.log(newValue);
+    },
+  };
+
   if (loading) {
     return (
       <div
@@ -91,7 +109,9 @@ export default function Review() {
                     <form onSubmit={addReview}>
                       <div className="form-group">
                         <label htmlFor="review">Reseña</label>
-
+                        <CardImg>
+                          <ReactStars {...stars} />
+                        </CardImg>
                         <textarea
                           className="form-control"
                           id="review"
