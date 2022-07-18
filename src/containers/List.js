@@ -35,7 +35,13 @@ export default function List() {
     }
   }
 
-  let items = [<Pagination.Prev key="prev" />];
+  let items = [
+    <Pagination.Prev
+      key="prev"
+      disabled={page === 1}
+      onClick={() => setPage(page - 1)}
+    />,
+  ];
   let active = meta?.page;
   for (let number = 1; number <= meta?.pages; number++) {
     items.push(
@@ -48,7 +54,13 @@ export default function List() {
       </Pagination.Item>,
     );
   }
-  items.push(<Pagination.Next key="next" />);
+  items.push(
+    <Pagination.Next
+      key="next"
+      disabled={page === meta?.pages}
+      onClick={() => setPage(page + 1)}
+    />,
+  );
 
   if (loading) {
     return (
