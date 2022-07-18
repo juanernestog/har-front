@@ -9,12 +9,10 @@ import {
   Row,
   Spinner,
 } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
-import { getCart } from '../api/carts';
 import UserContext from '../containers/UserContext';
 import CartContext from '../containers/CartContext.js';
 import { deleteReview } from '../api/reviews';
-import ReactStars from 'react-rating-stars-component';
+import { Rating } from 'react-simple-star-rating';
 
 export default function Review() {
   const { user } = useContext(UserContext);
@@ -49,21 +47,11 @@ export default function Review() {
     }
   }
 
-  const stars = {
-    size: 60,
-    count: 5,
-    color: 'yellow',
-    activeColor: 'green',
-    char: '★',
-    value: 7.5,
-    a11y: true,
-    isHalf: true,
-    emptyIcon: <i className="far fa-star" />,
-    halfIcon: <i className="fa fa-star-half-alt" />,
-    filledIcon: <i className="fa fa-star" />,
-    onChange: (newValue) => {
-      console.log(newValue);
-    },
+  const [rating, setRating] = useState(0);
+
+  const handleRating = (rate) => {
+    setRating(rate);
+    // Some logic
   };
 
   if (loading) {
@@ -108,10 +96,16 @@ export default function Review() {
                   <Card.Text>
                     <form onSubmit={addReview}>
                       <div className="form-group">
-                        <label htmlFor="review">Reseña</label>
-                        <CardImg>
-                          <ReactStars {...stars} />
-                        </CardImg>
+                        <Rating
+                          onClick={handleRating}
+                          ratingValue={rating}
+                          size={20}
+                          label
+                          transition
+                          fillColor="orange"
+                          emptyColor="gray"
+                          className="justify-content-center" // Will remove the inline style if applied
+                        />
                         <textarea
                           className="form-control"
                           id="review"
@@ -119,9 +113,9 @@ export default function Review() {
                           placeholder="Escribe tu reseña"
                         ></textarea>
                       </div>
-                      <button type="submit" className="btn btn-primary">
+                      <Button type="submit" className="btn btn-primary">
                         Enviar
-                      </button>
+                      </Button>
                     </form>
                   </Card.Text>
                 </Card.Body>
