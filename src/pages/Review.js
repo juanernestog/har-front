@@ -87,7 +87,7 @@ export default function Review() {
                 position: 'relative',
               }}
             >
-              <Card>
+              <Card style={{ width: '30rem' }}>
                 <Card.Body>
                   <Card.Title>{' Deja tu reseña aqui '}</Card.Title>
                   {
