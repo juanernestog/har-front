@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useCallback, useEffect, useState } from 'react';
 import {
   Alert,
   Button,
   Card,
+  CardImg,
   Col,
   Container,
   Row,
@@ -10,25 +11,14 @@ import {
 } from 'react-bootstrap';
 import UserContext from '../containers/UserContext';
 import CartContext from '../containers/CartContext.js';
-import { deleteReview, getReviews } from '../api/reviews';
+import { deleteReview } from '../api/reviews';
 import { Rating } from 'react-simple-star-rating';
-
-// This page is for the user to review the product they have purchased.
-// The user can also delete their review if they wish.
-
-// verify that the cart has been bought
-// if not alert cant review product until cart is bought
-// if cart is bought, display review form
-// if review is submitted, display review
-// if review is deleted, display review
-// if review is edited, display review
 
 export default function Review() {
   const { user } = useContext(UserContext);
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [reviews, setReviews] = useState([getReviews(cart?.id)]);
 
   async function removeReview(event, id) {
     event.preventDefault();
@@ -57,7 +47,7 @@ export default function Review() {
     }
   }
 
-  const [rating, setRating] = useState(reviews?.rating);
+  const [rating, setRating] = useState(0);
 
   const handleRating = (rate) => {
     setRating(rate);
@@ -97,7 +87,7 @@ export default function Review() {
                 position: 'relative',
               }}
             >
-              <Card style={{ width: '30rem' }}>
+              <Card>
                 <Card.Body>
                   <Card.Title>{' Deja tu reseña aqui '}</Card.Title>
                   {
