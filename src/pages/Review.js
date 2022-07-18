@@ -109,12 +109,21 @@ export default function Review() {
                         <textarea
                           className="form-control"
                           id="review"
-                          rows="3"
+                          rows="6"
                           placeholder="Escribe tu reseña"
                         ></textarea>
                       </div>
-                      <Button type="submit" className="btn btn-primary">
+                      <Button
+                        type="submit"
+                        className="btn btn-primary btn-block-sm mt-2 mb-2 "
+                      >
                         Enviar
+                      </Button>
+                    </form>
+                    <hr />
+                    <form onSubmit={removeReview}>
+                      <Button type="submit" className="btn btn-danger">
+                        Eliminar reseña
                       </Button>
                     </form>
                   </Card.Text>
