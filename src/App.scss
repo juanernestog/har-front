@@ -1,5 +1,12 @@
 .App {
-  background-image: url("./Background.jpg");
+  background-image: url('./Background.jpg');
   background-attachment: fixed;
   background-size: cover;
+}
+.container-app {
+  position: relative;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
 }

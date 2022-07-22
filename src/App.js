@@ -56,14 +56,13 @@ export default function App() {
     }
   }, []);
 
-  const newLocal = '*';
   return (
     <>
       <div className="App">
         <UserProvider>
           <CartProvider>
             {!invalidPage && <Header />}
-            <Container>
+            <Container className="container-app">
               <Row>
                 <Col>
                   <React.Suspense
@@ -120,11 +119,7 @@ export default function App() {
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/about" element={<About />} />
                       <Route path="/reviews" element={<Review />} />
-                      <div>
-                        {invalidPage && (
-                          <Route path={'*'} element={<NotFound />} />
-                        )}
-                      </div>
+                      <Route path={'*'} element={<NotFound />} />
                     </Routes>
                   </React.Suspense>
                 </Col>
