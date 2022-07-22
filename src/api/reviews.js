@@ -8,6 +8,35 @@ function transformReview(item) {
   };
 }
 
+export function getReviews() {
+  return http.get('/reviews').then((response) => {
+    const { data: json } = response;
+    return {
+      data: json.data.map(transformReview),
+    };
+  });
+}
+
+export function getReview({ id }) {
+  return http.get(`/reviews/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformReview(json.data),
+    };
+  });
+}
+//   return http.get(`/reviews/${id}`).then((response) => {
+//     const { data: json } = response;
+//     const transformedData = json.data.map((item) => {
+//       return transformReview(item);
+//     });
+//     return {
+//       data: transformedData,
+//       meta: json.meta,
+//     };
+//   });
+// }
+
 export function createReview(payload) {
   return http.post(`/reviews/`, payload).then((response) => {
     const { data: json } = response;
@@ -23,19 +52,6 @@ export function updateReview(payload) {
     const { data: json } = response;
     return {
       data: transformReview(json.data),
-    };
-  });
-}
-
-export function getReviews({ id }) {
-  return http.get(`/reviews/${id}`).then((response) => {
-    const { data: json } = response;
-    const transformedData = json.data.map((item) => {
-      return transformReview(item);
-    });
-    return {
-      data: transformedData,
-      meta: json.meta,
     };
   });
 }

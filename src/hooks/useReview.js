@@ -1,7 +1,7 @@
 // useReview hook
 import useSWR from 'swr';
 
-import { createReview, getReview, updateReview } from '../api/reviews';
+import { /*createReview,*/ getReview, updateReview } from '../api/reviews';
 
 export default function useReview() {
   const { data, error, mutate } = useSWR(`/`, getReview);

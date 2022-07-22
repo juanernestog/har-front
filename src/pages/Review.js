@@ -1,26 +1,57 @@
-import React, { useContext, useCallback, useEffect, useState } from 'react';
+import React, {
+  useContext,
+  useState /*, useCallback, useEffect*/,
+} from 'react';
 import {
   Alert,
   Button,
   Card,
-  CardImg,
   Col,
   Container,
   Row,
   Spinner,
+  Form,
 } from 'react-bootstrap';
-import UserContext from '../containers/UserContext';
+import { useNavigate } from 'react-router-dom';
+//import UserContext from '../containers/UserContext';
 import CartContext from '../containers/CartContext.js';
-import { deleteReview } from '../api/reviews';
+import { deleteReview, createReview, getReview } from '../api/reviews';
 import { Rating } from 'react-simple-star-rating';
 
-export default function Review() {
-  const { user } = useContext(UserContext);
+export default function Review(event, item) {
+  //const { user } = useContext(UserContext);
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
 
-  async function removeReview(event, id) {
+  async function onSubmit(event, item) {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      if (
+        cart &&
+        cart.cartItems &&
+        cart.cartItems.length > 0 /*&& cart.payed*/
+      ) {
+        await createReview({
+          cartId: cart.id,
+          score: event.target.score.value,
+          comment: event.target.comment.value,
+        });
+        const response = await getReview({ id: cart.id });
+        setCart(response.data);
+      } else {
+        navigate('/reviews');
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+    setLoading(false);
+  }
+
+  async function onRemoveReview(event, id) {
     event.preventDefault();
     setLoading(true);
     try {
@@ -34,24 +65,21 @@ export default function Review() {
     }
   }
 
-  async function addReview(event) {
-    event.preventDefault();
-    try {
-      await deleteReview({ id: cart.id });
-      const response = await deleteReview({ id: cart.id });
-      setCart(response.data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      setError(error);
-    }
-  }
-
-  const [rating, setRating] = useState(0);
+  // async function addReview(event) {
+  //   event.preventDefault();
+  //   try {
+  //     await createReview({ id: cart.id });
+  //     const response = await deleteReview({ id: cart.id });
+  //     setCart(response.data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     setError(error);
+  //   }
+  // }
 
   const handleRating = (rate) => {
     setRating(rate);
-    // Some logic
   };
 
   if (loading) {
@@ -94,7 +122,14 @@ export default function Review() {
                     // review stars here
                   }
                   <Card.Text>
-                    <form onSubmit={addReview}>
+                    <Form
+                      onSubmit={function (event) {
+                        onSubmit(event, {
+                          rating: rating,
+                          comment: event.target.comment.value,
+                        });
+                      }}
+                    >
                       <div className="form-group">
                         <Rating
                           onClick={handleRating}
@@ -119,13 +154,17 @@ export default function Review() {
                       >
                         Enviar
                       </Button>
-                    </form>
+                    </Form>
                     <hr />
-                    <form onSubmit={removeReview}>
+                    <Form
+                      onSubmit={function (event) {
+                        onRemoveReview(event, cart.id);
+                      }}
+                    >
                       <Button type="submit" className="btn btn-danger">
                         Eliminar reseña
                       </Button>
-                    </form>
+                    </Form>
                   </Card.Text>
                 </Card.Body>
               </Card>
