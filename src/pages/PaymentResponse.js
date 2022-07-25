@@ -51,7 +51,16 @@ export default function PaymentResponse() {
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="mt-5">
+      <div
+        style={{
+          margin: 'auto',
+          marginTop: '1rem',
+          width: '50%',
+          border: '3px solid green',
+          padding: '10px',
+          textAlign: 'center',
+        }}
+      >
         <h2>Información de la compra</h2>
         <p>{data?.data?.x_fecha_transaccion}</p>
         <p>La transacción ha sido {data?.data?.x_response}</p>
