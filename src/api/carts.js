@@ -51,3 +51,12 @@ export function updateCart(payload) {
     };
   });
 }
+
+export function deleteCart({ id }) {
+  return http.delete(`/carts/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformCart(json.data),
+    };
+  });
+}
