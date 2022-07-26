@@ -1,6 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert, Spinner } from 'react-bootstrap';
+import CartContext from '../containers/CartContext';
+import { createCart } from '../api/carts';
+import UserContext from '../containers/UserContext';
 
 const epaycoParam = new URLSearchParams(window.location.search);
 const paycoId = epaycoParam.get('ref_payco');
@@ -9,6 +12,8 @@ export default function PaymentResponse() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useContext(UserContext);
+  const { setCart } = useContext(CartContext);
 
   const loadPaycoInfo = useCallback(() => {
     try {
@@ -18,13 +23,20 @@ export default function PaymentResponse() {
         .then((response) => {
           const { data: json } = response;
           setData(json);
+          if (data?.data?.x_response === 'Aceptada') {
+            const cart = createCart({
+              userId: user.id,
+              address: 'empty',
+            });
+            setCart(cart);
+          }
         });
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [user, setCart, data]);
 
   useEffect(() => {
     loadPaycoInfo();
