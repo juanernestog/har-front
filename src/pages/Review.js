@@ -35,11 +35,14 @@ export default function Review(event, item) {
         cart.cartItems &&
         cart.cartItems.length > 0 /*&& cart.payed*/
       ) {
-        await createReview({
-          cartId: cart.id,
-          score: event.target.score.value,
-          comment: event.target.comment.value,
-        });
+        await createReview(
+          event,
+          // {
+          // cartId: cart.id,
+          // score: event.target.score.value,
+          // comment: event.target.comment.value,
+          // }
+        );
         const response = await getReview({ id: cart.id });
         setCart(response.data);
       } else {
@@ -127,6 +130,7 @@ export default function Review(event, item) {
                         onSubmit(event, {
                           rating: rating,
                           comment: event.target.comment.value,
+                          cartId: cart.id,
                         });
                       }}
                     >
