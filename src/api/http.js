@@ -37,7 +37,7 @@ instance.interceptors.response.use(
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('cart');
-      document.location = '/logout';
+      // document.location = '/logout';
     }
 
     if (error.response?.data?.message) {
