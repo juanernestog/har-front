@@ -17,6 +17,8 @@ export default function LogOut() {
     removeCart();
     setUser(null);
     setCart(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
     navigate('/login');
   }, [navigate, setUser, cart, setCart]);
 

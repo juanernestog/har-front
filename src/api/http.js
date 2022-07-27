@@ -35,6 +35,8 @@ instance.interceptors.response.use(
     // Do something with response error
     if (error.response.status === 401) {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('cart');
       document.location = '/logout';
     }
 

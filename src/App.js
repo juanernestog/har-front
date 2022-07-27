@@ -40,6 +40,7 @@ export default function App() {
       `/contact`,
       `/producers/:id`,
       `/clients/:id`,
+      `/carts/:id`,
       `/createProduct`,
       `/payment-response`,
     ];

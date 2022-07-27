@@ -28,7 +28,8 @@ export default function PaymentResponse() {
               userId: user.id,
               address: 'empty',
             });
-            setCart(cart);
+            setCart(cart.data);
+            localStorage.setItem('cart', JSON.stringify(cart.data));
           }
         });
     } catch (error) {

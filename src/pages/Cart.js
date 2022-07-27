@@ -31,6 +31,7 @@ export default function Cart() {
       await deleteCartItem({ id });
       const response = await getCart({ id: cart.id });
       setCart(response.data);
+      localStorage.setItem('cart', JSON.stringify(response.data));
       setLoading(false);
     } catch (error) {
       setLoading(false);
