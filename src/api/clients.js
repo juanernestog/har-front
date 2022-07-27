@@ -20,8 +20,12 @@ export async function logIn({ email, password }) {
       localStorage.setItem('token', json.meta.token);
     }
 
+    const user = transformClient(json.data);
+
+    localStorage.setItem('user', JSON.stringify(user));
+
     return {
-      data: transformClient(json.data),
+      data: user,
     };
   });
 }

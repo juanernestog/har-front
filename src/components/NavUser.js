@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,8 +8,24 @@ import Cart from './Cart';
 
 export default function NavUser() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
-  const { cart } = useContext(CartContext);
+  const { user, setUser } = useContext(UserContext);
+  const { cart, setCart } = useContext(CartContext);
+
+  useEffect(() => {
+    if (!user) {
+      const loggedUser = localStorage.getItem('user');
+      if (loggedUser) {
+        setUser(JSON.parse(loggedUser));
+      }
+    }
+
+    if (!cart) {
+      const inUseCart = localStorage.getItem('cart');
+      if (inUseCart) {
+        setCart(JSON.parse(inUseCart));
+      }
+    }
+  }, [cart, setCart, user, setUser]);
 
   function displayCart(event, id) {
     event.preventDefault();

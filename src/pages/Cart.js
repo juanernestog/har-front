@@ -31,6 +31,7 @@ export default function Cart() {
       await deleteCartItem({ id });
       const response = await getCart({ id: cart.id });
       setCart(response.data);
+      localStorage.setItem('cart', JSON.stringify(response.data));
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -65,7 +66,7 @@ export default function Cart() {
 
         //Atributos opcionales
         confirmation: 'http://secure2.payco.co/prueba_curl.php',
-        response: `${process.env.REACT_APP_SERVER_URL}/response`,
+        response: `${process.env.REACT_APP_BASE_URL}/payment-response`,
 
         //Atributos cliente
         name_billing: user.name,

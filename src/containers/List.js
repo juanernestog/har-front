@@ -30,6 +30,7 @@ export default function List() {
       });
       const response = await getCart({ id: cart.id });
       setCart(response.data);
+      localStorage.setItem('cart', JSON.stringify(response.data));
     } else {
       navigate('/login');
     }

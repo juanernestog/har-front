@@ -16,6 +16,7 @@ const SignupProducers = React.lazy(() => import('./pages/SignupProducers'));
 const LogIn = React.lazy(() => import('./pages/LogIn'));
 const LogInClients = React.lazy(() => import('./pages/LogInClients'));
 const Cart = React.lazy(() => import('./pages/Cart'));
+const PaymentResponse = React.lazy(() => import('./pages/PaymentResponse'));
 const LogInProducers = React.lazy(() => import('./pages/LogInProducers'));
 const ProducerProfile = React.lazy(() => import('./pages/ProducerProfile'));
 const ClientProfile = React.lazy(() => import('./pages/ClientProfile'));
@@ -39,7 +40,9 @@ export default function App() {
       `/contact`,
       `/producers/:id`,
       `/clients/:id`,
+      `/carts/:id`,
       `/createProduct`,
+      `/payment-response`,
     ];
     if (functioningRoutes.includes(window.location.pathname)) {
       setInvalidPage(false);
@@ -100,6 +103,10 @@ export default function App() {
                     />
                     <Route path="/createProduct" element={<CreateProduct />} />
                     <Route path="/carts/:id" element={<Cart />} />
+                    <Route
+                      path="/payment-response"
+                      element={<PaymentResponse />}
+                    />
                     <Route path="/logout" element={<LogOut />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/about" element={<About />} />

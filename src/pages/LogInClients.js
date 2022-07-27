@@ -33,6 +33,7 @@ export default function LogIn() {
       json.data.type = 'client';
       setUser(json.data);
       setCart(cart.data);
+      localStorage.setItem('cart', JSON.stringify(cart.data));
       navigate(`/`);
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
