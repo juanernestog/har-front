@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Alert,
   Button,
   Card,
   Col,
   Container,
+  Modal,
   Row,
   Spinner,
 } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { deleteProducer } from '../api/producers';
 import { deleteProduct } from '../api/products';
 import UserContext from '../containers/UserContext';
 import useProfile from '../hooks/useProfileProducers';
@@ -17,11 +19,23 @@ export default function ProducerProfile() {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const { data, error, loading } = useProfile({ id });
+  const navigate = useNavigate();
 
   async function removeProduct(event, id) {
     event.preventDefault();
     await deleteProduct({ id });
   }
+
+  async function deleteAccount(event, id) {
+    event.preventDefault();
+    await deleteProducer({ id });
+    navigate('/logout');
+  }
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   if (loading) {
     return (
@@ -58,13 +72,18 @@ export default function ProducerProfile() {
               <strong>Teléfono:</strong> {data.tel}
             </p>
             {user.id === data.id && (
-              <Button
-                as={Link}
-                className="btn btn-primary mt-4"
-                to={`/producers/profile/${id}`}
-              >
-                Editar Perfil
-              </Button>
+              <>
+                <Button
+                  as={Link}
+                  className="btn btn-primary m-4"
+                  to={`/producers/profile/${id}`}
+                >
+                  Editar Perfil
+                </Button>
+                <Button className="btn btn-danger m-4" onClick={handleShow}>
+                  Eliminar cuenta
+                </Button>
+              </>
             )}
           </Col>
           <Col sm={8} className="px-4 py-4 my-5 text-center">
@@ -120,6 +139,26 @@ export default function ProducerProfile() {
           </Col>
         </Row>
       </Container>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>¿Seguro que desea eliminar esta cuenta?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Si eliminas esta cuenta no podrás recuperarla</Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline-primary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button
+            variant="danger"
+            onClick={function (event) {
+              deleteAccount(event, user.id);
+            }}
+          >
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
