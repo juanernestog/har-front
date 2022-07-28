@@ -5,16 +5,20 @@ import {
   Card,
   Col,
   Container,
+  Modal,
   Row,
   Spinner,
 } from 'react-bootstrap';
 import { deleteCartItem } from '../api/cartItems';
-import { Link, useParams } from 'react-router-dom';
 import { getCart } from '../api/carts';
 import UserContext from '../containers/UserContext';
 import CartContext from '../containers/CartContext.js';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { deleteClient } from '../api/clients';
 
 export default function UserProfile() {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const { user } = useContext(UserContext);
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
@@ -89,6 +93,17 @@ export default function UserProfile() {
     }
   }
 
+  async function deleteAccount(event, id) {
+    event.preventDefault();
+    await deleteClient({ id });
+    navigate('/logout');
+  }
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   if (loading) {
     return (
       <div
@@ -117,15 +132,30 @@ export default function UserProfile() {
               <Card>
                 <Card.Body>
                   <Card.Title>{' Datos de usuario '}</Card.Title>
-                  <Card.Text>
-                    {user.name} {user.lastname}
-                  </Card.Text>
+                  <Card.Text>{user.name}</Card.Text>
                   <Card.Text>
                     <b>Teléfono:</b> {user.tel}
                   </Card.Text>
                   <Card.Text>
                     <b>Dirección:</b> {cart.address}
                   </Card.Text>
+                  {user.id === id && (
+                    <div className="d-flex flex-wrap justify-content-around">
+                      <Button
+                        as={Link}
+                        className="btn btn-primary mt-4"
+                        to={`/clients/profile/${id}`}
+                      >
+                        Editar Perfil
+                      </Button>
+                      <Button
+                        className="btn btn-danger mt-4"
+                        onClick={handleShow}
+                      >
+                        Eliminar cuenta
+                      </Button>
+                    </div>
+                  )}
                 </Card.Body>
               </Card>
             </div>
@@ -206,81 +236,26 @@ export default function UserProfile() {
           </Col>
         </Row>
       </Container>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>¿Seguro que desea eliminar esta cuenta?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Si eliminas esta cuenta no podrás recuperarla</Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline-primary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button
+            variant="danger"
+            onClick={function (event) {
+              deleteAccount(event, user.id);
+            }}
+          >
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
-
-//   return (
-//     <>
-//       {error && <Alert variant="danger">{error}</Alert>}
-//       <Container>
-//         <Row>
-//           <Col sm="2" className="px-4 py-4 my-5 text-center">
-//             <Card>
-//               <h1 className="">Perfil</h1>
-//               <p className="">
-//                 <strong>Nombre:</strong> {user.name}
-//               </p>
-//               <p className="">
-//                 <strong>Email:</strong> {user.email}
-//               </p>
-//               <p className="">
-//                 <strong>Teléfono:</strong> {user.tel}
-//               </p>
-//               {user.id === cart.id && (
-//                 <Button
-//                   as={Link}
-//                   className="btn btn-primary mt-4"
-//                   to={`/clients/profile/${user.id}`}
-//                 >
-//                   Editar Perfil
-//                 </Button>
-//               )}
-//             </Card>
-//           </Col>
-//           <Col sm={10} className="px-4 py-4 my-5 text-center">
-//             <div className="mx-auto">
-//               <h2>
-//                 {}Carrito{}
-//               </h2>
-//               <div className="d-flex flex-wrap justify-content-around">
-//                 {cart.map((item) => (
-//                   <div key={item.id}>
-//                     <Card className="text-center" style={{ width: '10rem' }}>
-//                       <Card.Img variant="top" src={item.picture?.path} />
-//                       <Card.Body>
-//                         <Card.Title>
-//                           {item.name}
-//                           <br />
-//                           <span className="text-muted">
-//                             ${item.price} / {item.unit}
-//                           </span>
-//                         </Card.Title>
-//                         <Card.Subtitle>{item.category}</Card.Subtitle>
-//                         <Button className="m-3" variant="primary">
-//                           Editar
-//                         </Button>
-//                         <Button
-//                           className="m-3"
-//                           variant="danger"
-//                           onClick={function (event) {
-//                             removeCartItem(event, item.id);
-//                           }}
-//                         >
-//                           Eliminar
-//                         </Button>
-//                       </Card.Body>
-//                     </Card>
-//                   </div>
-//                 ))}
-//               </div>
-//               <Button as={Link} variant="primary" to="/addProduct">
-//                 Añadir Al Carrito
-//               </Button>
-//             </div>
-//           </Col>
-//         </Row>
-//       </Container>
-//     </>
-//   );
-// }

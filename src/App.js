@@ -23,6 +23,7 @@ const ClientProfile = React.lazy(() => import('./pages/ClientProfile'));
 const EditProfileProducer = React.lazy(() =>
   import('./pages/EditProfileProducer'),
 );
+const EditProfileClient = React.lazy(() => import('./pages/EditProfileClient'));
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
@@ -100,6 +101,10 @@ export default function App() {
                     <Route
                       path="/producers/profile/:id"
                       element={<EditProfileProducer />}
+                    />
+                    <Route
+                      path="/clients/profile/:id"
+                      element={<EditProfileClient />}
                     />
                     <Route path="/createProduct" element={<CreateProduct />} />
                     <Route path="/carts/:id" element={<Cart />} />

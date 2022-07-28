@@ -46,3 +46,21 @@ export async function getClient({ id }) {
     data: transformClient(json.data),
   };
 }
+
+export async function updateClient(id, payload) {
+  return http.put(`/clients/${id}`, payload).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformClient(json.data),
+    };
+  });
+}
+
+export async function deleteClient({ id }) {
+  return http.delete(`/clients/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformClient(json.data),
+    };
+  });
+}
