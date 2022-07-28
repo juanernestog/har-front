@@ -14,7 +14,7 @@ export default function LogOut() {
     async function removeCart() {
       await deleteCart({ id: cart.id });
     }
-    cart.id && removeCart();
+    cart && removeCart();
     setUser(null);
     setCart(null);
     localStorage.removeItem('user');
