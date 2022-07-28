@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import CartContext from '../containers/CartContext.js';
 import { deleteReview, createReview, getReview } from '../api/reviews';
 import { Rating } from 'react-simple-star-rating';
+import axios from 'axios';
 
 export default function Review(event, item) {
   //const { user } = useContext(UserContext);
@@ -26,31 +27,39 @@ export default function Review(event, item) {
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
 
-  async function onSubmit(event, item) {
+  async function onSubmit(event) {
     event.preventDefault();
     setLoading(true);
-    try {
-      if (
-        cart &&
-        cart.cartItems &&
-        cart.cartItems.length > 0 /*&& cart.payed*/
-      ) {
-        await createReview(
-          event,
-          // {
-          // cartId: cart.id,
-          // score: event.target.score.value,
-          // comment: event.target.comment.value,
-          // }
-        );
-        const response = await getReview({ id: cart.id });
-        setCart(response.data);
-      } else {
-        navigate('/reviews');
-      }
-    } catch (error) {
-      setError(error.message);
-    }
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/reviews`, {
+        cartId: cart.id,
+        score: event.target.score.value,
+        comment: event.target.comment.value,
+      })
+      .then((response) => {
+        console.log('Respuesta', response);
+      });
+    // try {
+    //   if (
+    //     true
+    //     // cart &&
+    //     // cart.cartItems &&
+    //     // cart.cartItems.length > 0 /*&& cart.payed*/
+    //   ) {
+    //     console.log('entering createReview');
+    //     await createReview(event, {
+    //       cartId: cart.id,
+    //       score: event.target.score.value,
+    //       comment: event.target.comment.value,
+    //     });
+    //     const response = await getReview({ id: cart.id });
+    //     setCart(response.data);
+    //   } else {
+    //     navigate('/reviews');
+    //   }
+    // } catch (error) {
+    //   setError(error.message);
+    // }
     setLoading(false);
   }
 
@@ -126,13 +135,13 @@ export default function Review(event, item) {
                   }
                   <Card.Text>
                     <Form
-                      onSubmit={function (event) {
-                        onSubmit(event, {
-                          rating: rating,
-                          comment: event.target.comment.value,
-                          cartId: cart.id,
-                        });
-                      }}
+                    // onSubmit={function (event) {
+                    //   onSubmit(event, {
+                    //     rating: rating,
+                    //     comment: event.target.comment.value,
+                    //     cartId: cart.id,
+                    //   });
+                    // }}
                     >
                       <div className="form-group">
                         <Rating
@@ -155,6 +164,13 @@ export default function Review(event, item) {
                       <Button
                         type="submit"
                         className="btn btn-primary btn-block-sm mt-2 mb-2 "
+                        onClick={() => {
+                          onSubmit(event, {
+                            rating: rating,
+                            comment: event.target.comment.value,
+                            cartId: cart.id,
+                          });
+                        }}
                       >
                         Enviar
                       </Button>
