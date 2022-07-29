@@ -3,8 +3,8 @@ import React from 'react';
 export default function About() {
   return (
     <>
-      <h1>¿Quienes somos?</h1>
-      <p>
+      <h1 className="title">¿Quienes somos?</h1>
+      <p className="text-body">
         {' '}
         Harvestify es una empresa que ofrece una plataforma de compra y venta de
         productos agrícolas.{' '}

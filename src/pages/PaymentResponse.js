@@ -20,16 +20,16 @@ export default function PaymentResponse() {
       setLoading(true);
       axios
         .get(`https://secure.epayco.co/validation/v1/reference/${paycoId}`)
-        .then((response) => {
+        .then(async (response) => {
           const { data: json } = response;
           setData(json);
           if (data?.data?.x_response === 'Aceptada') {
-            const cart = createCart({
+            const newCart = await createCart({
               userId: user.id,
               address: 'empty',
             });
-            setCart(cart.data);
-            localStorage.setItem('cart', JSON.stringify(cart.data));
+            setCart(newCart.data);
+            localStorage.setItem('cart', JSON.stringify(newCart.data));
           }
         });
     } catch (error) {

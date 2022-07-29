@@ -87,7 +87,7 @@ export default function List() {
       <div className="d-flex flex-wrap justify-content-around mb-3 mt-3">
         {data.map((item) => (
           <div
-            className="d-flex justify-content-center"
+            className="d-flex justify-content-center product-card"
             key={item.id}
             style={{ flexBasis: '20%' }}
           >
