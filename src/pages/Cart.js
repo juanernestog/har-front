@@ -108,6 +108,7 @@ export default function Cart() {
       {cart.cartItemsCount && (
         <>
           <div className="mt-5">
+            <h2>Carrito</h2>
             {cart.cartItems?.map((item) => (
               <div key={item.id}>
                 <Card
