@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Alert, Button, Card, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { deleteCartItem } from '../api/cartItems';
 import { getCart } from '../api/carts';
 import CartContext from '../containers/CartContext';
@@ -104,54 +105,72 @@ export default function Cart() {
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="mt-5">
-        {cart.cartItems?.map((item) => (
-          <div key={item.id}>
-            <Card
-              className="text-center flex-row align-items-center"
-              style={{ width: '20rem' }}
-            >
-              <Card.Img
-                style={{ objectFit: 'contain' }}
-                height="100px"
-                variant="left"
-                src={item.product?.picture.path}
-              />
-              <Card.Body>
-                <Card.Title>
-                  {item.product.name}
-                  <br />
-                  <span className="text-muted">
-                    ${item.product?.price} / {item.product?.unit}
-                  </span>
-                </Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  <span>Cantidad: {item.quantity}</span>
-                  <br />
-                  <span>Subtotal: ${item.quantity * item.product?.price}</span>
-                </Card.Subtitle>
-                <Button
-                  variant="danger"
-                  onClick={function (event) {
-                    removeCartItem(event, item.id);
-                  }}
+      {cart.cartItemsCount && (
+        <>
+          <div className="mt-5">
+            {cart.cartItems?.map((item) => (
+              <div key={item.id}>
+                <Card
+                  className="text-center flex-row align-items-center"
+                  style={{ width: '20rem' }}
                 >
-                  Eliminar
-                </Button>
-              </Card.Body>
-            </Card>
+                  <Card.Img
+                    style={{ objectFit: 'contain' }}
+                    height="100px"
+                    variant="left"
+                    src={item.product?.picture.path}
+                  />
+                  <Card.Body>
+                    <Card.Title>
+                      {item.product.name}
+                      <br />
+                      <span className="text-muted">
+                        ${item.product?.price} / {item.product?.unit}
+                      </span>
+                    </Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      <span>Cantidad: {item.quantity}</span>
+                      <br />
+                      <span>
+                        Subtotal: ${item.quantity * item.product?.price}
+                      </span>
+                    </Card.Subtitle>
+                    <Button
+                      variant="danger"
+                      onClick={function (event) {
+                        removeCartItem(event, item.id);
+                      }}
+                    >
+                      Eliminar
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div>Total: ${total}</div>
-      <Button
-        variant="primary"
-        onClick={function (event) {
-          pay(event);
-        }}
-      >
-        Pagar
-      </Button>
+          <div>Total: ${total}</div>
+          <Button
+            variant="primary"
+            onClick={function (event) {
+              pay(event);
+            }}
+          >
+            Pagar
+          </Button>
+        </>
+      )}
+      {!cart.cartItemsCount && (
+        <div className="px-4 py-5 my-5 text-center">
+          <h1 className="display-5 fw-bold">
+            El carrito de compras está vacío
+          </h1>
+          <div className="col-lg-6 mx-auto">
+            <p className="lead mb-4">
+              Click {<Link to="/">aquí</Link>} para regresar al inicio
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 }
