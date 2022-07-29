@@ -62,7 +62,7 @@ export default function SignUp() {
 
   return (
     <>
-      <h2 className="my-4">Sign Up</h2>
+      <h2 className="my-4">Registrarse como productor</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Container>
         <Row>

@@ -64,7 +64,7 @@ export default function EditProfileClient() {
 
   return (
     <>
-      <h2 className="my-4">Sign Up</h2>
+      <h2 className="my-4">Editar perfil</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Container>
         <Row>
