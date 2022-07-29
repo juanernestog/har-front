@@ -92,7 +92,10 @@ export default function ProducerProfile() {
               <div className="d-flex flex-wrap justify-content-around">
                 {data.products.map((item) => (
                   <div key={item.id}>
-                    <Card className="text-center" style={{ width: '10rem' }}>
+                    <Card
+                      className="text-center mt-3"
+                      style={{ width: '10rem' }}
+                    >
                       <Card.Img
                         style={{ objectFit: 'contain' }}
                         height="100px"
