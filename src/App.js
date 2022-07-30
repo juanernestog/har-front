@@ -9,7 +9,7 @@ import { UserProvider } from './containers/UserContext';
 import { CartProvider } from './containers/CartContext';
 
 const Home = React.lazy(() => import('./pages/Home'));
-// const NotFound = React.lazy(() => import('./pages/NotFound'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
 const Signup = React.lazy(() => import('./pages/Signup'));
 const SignupClients = React.lazy(() => import('./pages/SignupClients'));
 const SignupProducers = React.lazy(() => import('./pages/SignupProducers'));
@@ -28,6 +28,7 @@ const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const About = React.lazy(() => import('./pages/About'));
+const Review = React.lazy(() => import('./pages/Review'));
 
 export default function App() {
   const [invalidPage, setInvalidPage] = React.useState(false);
@@ -44,6 +45,13 @@ export default function App() {
       `/carts/:id`,
       `/createProduct`,
       `/payment-response`,
+      `/logout`,
+      `/cart`,
+      `/editProfileProducer`,
+      `/createProduct`,
+      `/logout`,
+      `/reviews/:id`,
+      `/reviews`,
     ];
     if (functioningRoutes.includes(window.location.pathname)) {
       setInvalidPage(false);
@@ -53,76 +61,82 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
-      <UserProvider>
-        <CartProvider>
-          {!invalidPage && <Header />}
-          <Container>
-            <Row>
-              <Col>
-                <React.Suspense
-                  fallback={
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'fixed',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                      }}
-                    >
-                      <Spinner animation="border" role="status">
-                        <span className="visually-hidden"></span>
-                      </Spinner>
-                    </div>
-                  }
-                >
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/signup/clients" element={<SignupClients />} />
-                    <Route
-                      path="/signup/producers"
-                      element={<SignupProducers />}
-                    />
-                    <Route path="/login" element={<LogIn />} />
-                    <Route path="/login/clients" element={<LogInClients />} />
-                    <Route
-                      path="/login/producers"
-                      element={<LogInProducers />}
-                    />
-                    <Route
-                      path="/producers/:id"
-                      element={<ProducerProfile />}
-                    />
-                    <Route path="/clients/:id" element={<ClientProfile />} />
-                    <Route
-                      path="/producers/profile/:id"
-                      element={<EditProfileProducer />}
-                    />
-                    <Route
-                      path="/clients/profile/:id"
-                      element={<EditProfileClient />}
-                    />
-                    <Route path="/createProduct" element={<CreateProduct />} />
-                    <Route path="/carts/:id" element={<Cart />} />
-                    <Route
-                      path="/payment-response"
-                      element={<PaymentResponse />}
-                    />
-                    <Route path="/logout" element={<LogOut />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/about" element={<About />} />
-                  </Routes>
-                </React.Suspense>
-              </Col>
-            </Row>
-            {!invalidPage && <Footer />}
-          </Container>
-        </CartProvider>
-      </UserProvider>
-    </div>
+    <>
+      <div className="App">
+        <UserProvider>
+          <CartProvider>
+            {!invalidPage && <Header />}
+            <Container className="container-app">
+              <Row>
+                <Col>
+                  <React.Suspense
+                    fallback={
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          position: 'fixed',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                        }}
+                      >
+                        <Spinner animation="border" role="status">
+                          <span className="visually-hidden"></span>
+                        </Spinner>
+                      </div>
+                    }
+                  >
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/signup" element={<Signup />} />
+                      <Route
+                        path="/signup/clients"
+                        element={<SignupClients />}
+                      />
+                      <Route
+                        path="/signup/producers"
+                        element={<SignupProducers />}
+                      />
+                      <Route path="/login" element={<LogIn />} />
+                      <Route path="/login/clients" element={<LogInClients />} />
+                      <Route
+                        path="/login/producers"
+                        element={<LogInProducers />}
+                      />
+                      <Route
+                        path="/producers/:id"
+                        element={<ProducerProfile />}
+                      />
+                      <Route path="/clients/:id" element={<ClientProfile />} />
+                      <Route
+                        path="/producers/profile/:id"
+                        element={<EditProfileProducer />}
+                      />
+                      <Route
+                        path="/createProduct"
+                        element={<CreateProduct />}
+                      />
+                      <Route
+                        path="/payment-response"
+                        element={<PaymentResponse />}
+                      />
+                      <Route path="/carts/:id" element={<Cart />} />
+                      <Route path="/logout" element={<LogOut />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/about" element={<About />} />
+                      <Route path="/reviews" element={<Review />} />
+                      <Route path={'*'} element={<NotFound />} />
+                    </Routes>
+                  </React.Suspense>
+                </Col>
+              </Row>
+              {!invalidPage && <Footer />}
+            </Container>
+          </CartProvider>
+        </UserProvider>
+      </div>
+    </>
   );
 }
