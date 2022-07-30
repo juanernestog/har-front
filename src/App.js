@@ -47,7 +47,8 @@ export default function App() {
       `/payment-response`,
       `/logout`,
       `/cart`,
-      `/editProfileProducer`,
+      `/producers/profile/:id`,
+      `/clients/profile/:id`,
       `/createProduct`,
       `/logout`,
       `/reviews/:id`,
@@ -113,6 +114,10 @@ export default function App() {
                       <Route
                         path="/producers/profile/:id"
                         element={<EditProfileProducer />}
+                      />
+                      <Route
+                        path="/clients/profile/:id"
+                        element={<EditProfileClient />}
                       />
                       <Route
                         path="/createProduct"
