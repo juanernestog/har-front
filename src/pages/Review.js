@@ -18,51 +18,42 @@ import CartContext from '../containers/CartContext.js';
 import { deleteReview, createReview, getReview } from '../api/reviews';
 import { Rating } from 'react-simple-star-rating';
 import axios from 'axios';
-
+import { setCommentRange } from 'typescript';
 export default function Review(event, item) {
   //const { user } = useContext(UserContext);
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
   const navigate = useNavigate();
-
-  async function onSubmit(event) {
-    event.preventDefault();
-    setLoading(true);
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/reviews`, {
-        cartId: cart.id,
-        score: event.target.score.value,
-        comment: event.target.comment.value,
-      })
-      .then((response) => {
-        console.log('Respuesta', response);
+  const cartExample = JSON.parse(localStorage.getItem('cart'));
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await createReview({
+  //       cartId: "62e325f6bf131a3640c9430b",
+  //       score: 4,
+  //       comment: "Comentario de prueba 2",
+  //     });
+  //     const response = await getReview({ id: "62e325f6bf131a3640c9430b" });
+  //     setCart(response.data);
+  //   } catch {
+  //     alert("Ups! ocurrió un error");
+  //   }
+  // };
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      await createReview({
+        cartId: cartExample.id,
+        score: rating / 20,
+        comment: comment,
       });
-    // try {
-    //   if (
-    //     true
-    //     // cart &&
-    //     // cart.cartItems &&
-    //     // cart.cartItems.length > 0 /*&& cart.payed*/
-    //   ) {
-    //     console.log('entering createReview');
-    //     await createReview(event, {
-    //       cartId: cart.id,
-    //       score: event.target.score.value,
-    //       comment: event.target.comment.value,
-    //     });
-    //     const response = await getReview({ id: cart.id });
-    //     setCart(response.data);
-    //   } else {
-    //     navigate('/reviews');
-    //   }
-    // } catch (error) {
-    //   setError(error.message);
-    // }
-    setLoading(false);
+    } catch {
+      alert('Ups! ocurrió un error');
+    }
   }
-
   async function onRemoveReview(event, id) {
     event.preventDefault();
     setLoading(true);
@@ -76,7 +67,6 @@ export default function Review(event, item) {
       setError(error);
     }
   }
-
   // async function addReview(event) {
   //   event.preventDefault();
   //   try {
@@ -89,11 +79,9 @@ export default function Review(event, item) {
   //     setError(error);
   //   }
   // }
-
   const handleRating = (rate) => {
     setRating(rate);
   };
-
   if (loading) {
     return (
       <div
@@ -111,7 +99,6 @@ export default function Review(event, item) {
       </div>
     );
   }
-
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
@@ -159,18 +146,18 @@ export default function Review(event, item) {
                           id="review"
                           rows="6"
                           placeholder="Escribe tu reseña"
+                          onChange={(e) => {
+                            setComment(e.target.value);
+                          }}
                         ></textarea>
                       </div>
                       <Button
                         type="submit"
                         className="btn btn-primary btn-block-sm mt-2 mb-2 "
-                        onClick={() => {
-                          onSubmit(event, {
-                            rating: rating,
-                            comment: event.target.comment.value,
-                            cartId: cart.id,
-                          });
+                        onClick={(event) => {
+                          onSubmit(event);
                         }}
+                        // onClick={(e) => handleSubmit(e)}
                       >
                         Enviar
                       </Button>
