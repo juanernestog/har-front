@@ -4,21 +4,6 @@ import { Card, Col, Row, Container } from 'react-bootstrap';
 export default function About() {
   return (
     <>
-<<<<<<< HEAD
-      <h1 className="title">¿Quienes somos?</h1>
-      <p className="text-body">
-        {' '}
-        Harvestify es una empresa que ofrece una plataforma de compra y venta de
-        productos agrícolas.{' '}
-      </p>
-      <p> Nos encontramos en las ciudades de Medellín y Bogotá, Colombia. </p>
-      <p>
-        {' '}
-        Nos enorgullece ayudar a todos los usuarios de nuestra plataforma.
-        Clientes y productores nuestro compromiso es que sea mejor para todos la
-        comercializacion directa{' '}
-      </p>
-=======
       <Container>
         <Row>
           <Col>
@@ -56,7 +41,6 @@ export default function About() {
           </Col>
         </Row>
       </Container>
->>>>>>> reviews
     </>
   );
 }
