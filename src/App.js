@@ -25,6 +25,7 @@ const EditProfileProducer = React.lazy(() =>
 );
 const EditProfileClient = React.lazy(() => import('./pages/EditProfileClient'));
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
+const EditProduct = React.lazy(() => import('./pages/EditProduct'));
 const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const About = React.lazy(() => import('./pages/About'));
@@ -122,6 +123,10 @@ export default function App() {
                       <Route
                         path="/createProduct"
                         element={<CreateProduct />}
+                      />
+                      <Route
+                        path="/editProduct/:id"
+                        element={<EditProduct />}
                       />
                       <Route
                         path="/payment-response"

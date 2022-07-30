@@ -111,7 +111,12 @@ export default function ProducerProfile() {
                           </span>
                         </Card.Title>
                         <Card.Subtitle>{item.category}</Card.Subtitle>
-                        <Button className="m-3" variant="primary">
+                        <Button
+                          className="m-3"
+                          variant="primary"
+                          as={Link}
+                          to={`/editProduct/${item.id}`}
+                        >
                           Editar
                         </Button>
                         <Button
