@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ProtectedRoute from './containers/ProtectedRoute';
 import { UserProvider } from './containers/UserContext';
 import { CartProvider } from './containers/CartContext';
 
@@ -114,25 +115,48 @@ export default function App() {
                       <Route path="/clients/:id" element={<ClientProfile />} />
                       <Route
                         path="/producers/profile/:id"
-                        element={<EditProfileProducer />}
+                        element={
+                          <ProtectedRoute>
+                            <EditProfileProducer />
+                          </ProtectedRoute>
+                        }
                       />
                       <Route
                         path="/clients/profile/:id"
-                        element={<EditProfileClient />}
+                        element={
+                          <ProtectedRoute>
+                            <EditProfileClient />
+                          </ProtectedRoute>
+                        }
                       />
                       <Route
                         path="/createProduct"
-                        element={<CreateProduct />}
+                        element={
+                          <ProtectedRoute>
+                            <CreateProduct />
+                          </ProtectedRoute>
+                        }
                       />
                       <Route
                         path="/editProduct/:id"
-                        element={<EditProduct />}
+                        element={
+                          <ProtectedRoute>
+                            <EditProduct />
+                          </ProtectedRoute>
+                        }
                       />
                       <Route
                         path="/payment-response"
                         element={<PaymentResponse />}
                       />
-                      <Route path="/carts/:id" element={<Cart />} />
+                      <Route
+                        path="/carts/:id"
+                        element={
+                          <ProtectedRoute>
+                            <Cart />
+                          </ProtectedRoute>
+                        }
+                      />
                       <Route path="/logout" element={<LogOut />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/about" element={<About />} />

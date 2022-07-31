@@ -5,7 +5,7 @@ import UserContext from './UserContext';
 export default function ProtectedRoute({ children }) {
   const { user } = useContext(UserContext);
 
-  if (!user?.username) {
+  if (!user?.id) {
     return <Navigate to="/login" />;
   }
 
