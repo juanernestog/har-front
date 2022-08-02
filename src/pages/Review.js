@@ -15,10 +15,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 //import UserContext from '../containers/UserContext';
 import CartContext from '../containers/CartContext.js';
-import { deleteReview, createReview, getReview } from '../api/reviews';
+import { deleteReview, createReview /*getReview */ } from '../api/reviews';
 import { Rating } from 'react-simple-star-rating';
-import axios from 'axios';
-import { setCommentRange } from 'typescript';
+//import axios from 'axios';
+//import { setCommentRange } from 'typescript';
 export default function Review(event, item) {
   //const { user } = useContext(UserContext);
   const { cart, setCart } = useContext(CartContext);
@@ -27,7 +27,7 @@ export default function Review(event, item) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const navigate = useNavigate();
-  const cartExample = JSON.parse(localStorage.getItem('cart'));
+  setCart(JSON.parse(localStorage.getItem('cart')));
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
   //   try {
@@ -42,14 +42,15 @@ export default function Review(event, item) {
   //     alert("Ups! ocurrió un error");
   //   }
   // };
-  async function onSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
       await createReview({
-        cartId: cartExample.id,
+        cartId: cart.id,
         score: rating / 20,
         comment: comment,
       });
+      navigate('/review');
     } catch {
       alert('Ups! ocurrió un error');
     }
@@ -155,7 +156,7 @@ export default function Review(event, item) {
                         type="submit"
                         className="btn btn-primary btn-block-sm mt-2 mb-2 "
                         onClick={(event) => {
-                          onSubmit(event);
+                          handleSubmit(event);
                         }}
                         // onClick={(e) => handleSubmit(e)}
                       >
