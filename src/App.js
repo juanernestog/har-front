@@ -31,6 +31,7 @@ const LogOut = React.lazy(() => import('./pages/LogOut'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const About = React.lazy(() => import('./pages/About'));
 const Review = React.lazy(() => import('./pages/Review'));
+const Orders = React.lazy(() => import('./pages/Orders'));
 
 export default function App() {
   const [invalidPage, setInvalidPage] = React.useState(false);
@@ -68,7 +69,7 @@ export default function App() {
       <div className="App">
         <UserProvider>
           <CartProvider>
-            {!invalidPage && <Header />}
+            <Header />
             <Container className="container-app">
               <Row>
                 <Col>
@@ -157,6 +158,14 @@ export default function App() {
                           </ProtectedRoute>
                         }
                       />
+                      <Route
+                        path="/Orders"
+                        element={
+                          <ProtectedRoute>
+                            <Orders />
+                          </ProtectedRoute>
+                        }
+                      />
                       <Route path="/logout" element={<LogOut />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/about" element={<About />} />
@@ -166,7 +175,7 @@ export default function App() {
                   </React.Suspense>
                 </Col>
               </Row>
-              {!invalidPage && <Footer />}
+              <Footer />
             </Container>
           </CartProvider>
         </UserProvider>
