@@ -149,6 +149,13 @@ export default function UserProfile() {
                         Editar Perfil
                       </Button>
                       <Button
+                        as={Link}
+                        className="btn btn-primary mt-4"
+                        onClick={`/orders/${id}`}
+                      >
+                        Mis pedidos
+                      </Button>
+                      <Button
                         className="btn btn-danger mt-4"
                         onClick={handleShow}
                       >
