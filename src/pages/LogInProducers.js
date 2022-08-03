@@ -57,12 +57,12 @@ export default function LogIn() {
         style={{
           margin: 'auto',
           marginTop: '1rem',
-          width: '30%',
+          width: '35%',
           padding: '10px',
         }}
       >
         <Card.Body>
-          <Card.Title>Iniciar Sesión</Card.Title>
+          <Card.Title>Iniciar Sesión como productor</Card.Title>
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
