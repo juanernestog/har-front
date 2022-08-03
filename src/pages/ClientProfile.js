@@ -161,61 +161,66 @@ export default function UserProfile() {
             </div>
           </Col>
           <Col>
-            <div className="mt-5 p5">
-              <Card>
-                <Card.Title>{' Carrito '}</Card.Title>
-                {cart.cartItems?.map((item) => (
-                  <div key={item.id}>
-                    <Card
-                      className="text-center flex-row align-items-center"
-                      style={{ width: '20rem' }}
-                    >
-                      <Card.Img
-                        style={{ objectFit: 'contain' }}
-                        height="100px"
-                        variant="left"
-                        src={item.product?.picture.path}
-                      />
-                      <Card.Body>
-                        <Card.Title>
-                          {item.product.name}
-                          <br />
-                          <span className="text-muted">
-                            ${item.product?.price} / {item.product?.unit}
-                          </span>
-                        </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          <span>Cantidad: {item.quantity}</span>
-                          <br />
-                          <span>
-                            Subtotal: ${item.quantity * item.product?.price}
-                          </span>
-                        </Card.Subtitle>
-                        <Button
-                          variant="danger"
-                          onClick={function (event) {
-                            removeCartItem(event, item.id);
-                          }}
+            {cart.cartItemsCount > 0 ? (
+              <>
+                <div className="mt-5 p5">
+                  <Card>
+                    <Card.Title>{' Carrito '}</Card.Title>
+                    {cart.cartItems?.map((item) => (
+                      <div key={item.id}>
+                        <Card
+                          className="text-center flex-row align-items-center"
+                          style={{ width: '20rem' }}
                         >
-                          Eliminar
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                ))}
-              </Card>
-            </div>
-            <div>Total: ${total}</div>
-            <Button
-              variant="primary"
-              onClick={function (event) {
-                pay(event);
-              }}
-            >
-              Pagar
-            </Button>
+                          <Card.Img
+                            style={{ objectFit: 'contain' }}
+                            height="100px"
+                            variant="left"
+                            src={item.product?.picture.path}
+                          />
+                          <Card.Body>
+                            <Card.Title>
+                              {item.product.name}
+                              <br />
+                              <span className="text-muted">
+                                ${item.product?.price} / {item.product?.unit}
+                              </span>
+                            </Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">
+                              <span>Cantidad: {item.quantity}</span>
+                              <br />
+                              <span>
+                                Subtotal: ${item.quantity * item.product?.price}
+                              </span>
+                            </Card.Subtitle>
+                            <Button
+                              variant="danger"
+                              onClick={function (event) {
+                                removeCartItem(event, item.id);
+                              }}
+                            >
+                              Eliminar
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                    ))}
+                  </Card>
+                </div>
+                <div>Total: ${total}</div>
+                <Button
+                  variant="primary"
+                  onClick={function (event) {
+                    pay(event);
+                  }}
+                >
+                  Pagar
+                </Button>
+              </>
+            ) : (
+              <p className="lead my-5">El carrito de compras está vacío</p>
+            )}
           </Col>
-
           <Col>
             <div className="mt-5">
               <Card>
