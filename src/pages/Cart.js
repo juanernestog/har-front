@@ -1,8 +1,15 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Alert, Button, Card, Spinner } from 'react-bootstrap';
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  InputGroup,
+  Spinner,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { deleteCartItem } from '../api/cartItems';
-import { getCart } from '../api/carts';
+import { getCart, updateCart } from '../api/carts';
 import CartContext from '../containers/CartContext';
 import UserContext from '../containers/UserContext';
 
@@ -38,6 +45,20 @@ export default function Cart() {
       setLoading(false);
       setError(error);
     }
+  }
+
+  async function setAddress(event) {
+    event.preventDefault();
+    setLoading(true);
+    const actualCart = cart;
+    actualCart.address = event.target.address.value;
+    await setCart(actualCart);
+    await updateCart({
+      id: cart.id,
+      address: event.target.address.value,
+      total: total,
+    });
+    setLoading(false);
   }
 
   async function pay(event) {
@@ -150,6 +171,22 @@ export default function Cart() {
             ))}
           </div>
           <div>Total: ${total}</div>
+          <Form
+            onSubmit={function (event) {
+              setAddress(event);
+            }}
+          >
+            <InputGroup className="mb-3 w-50">
+              <Form.Control
+                type="text"
+                placeholder="Escribe la dirección de entrega"
+                name="address"
+              />
+              <Button type="submit" variant="outline-primary">
+                Aceptar
+              </Button>
+            </InputGroup>
+          </Form>
           <Button
             variant="primary"
             onClick={function (event) {

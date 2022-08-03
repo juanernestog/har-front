@@ -42,14 +42,15 @@ export function createCart({
     });
 }
 
-export function updateCart(payload) {
-  const { id } = payload;
-  return http.put(`/carts/${id}`, payload).then((response) => {
-    const { data: json } = response;
-    return {
-      data: transformCart(json.data),
-    };
-  });
+export function updateCart({ id, address = '', deliveryPrice = 0, total = 0 }) {
+  return http
+    .put(`/carts/${id}`, { address, deliveryPrice, total })
+    .then((response) => {
+      const { data: json } = response;
+      return {
+        data: transformCart(json.data),
+      };
+    });
 }
 
 export function deleteCart({ id }) {
