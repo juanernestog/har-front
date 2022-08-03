@@ -10,7 +10,7 @@ export default function SignUp() {
         style={{
           margin: 'auto',
           marginTop: '1rem',
-          width: '300px',
+          width: '35%',
           padding: '10px',
           textAlign: 'center',
         }}
