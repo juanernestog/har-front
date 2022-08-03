@@ -1,7 +1,4 @@
-import React, {
-  useContext,
-  useState /*, useCallback, useEffect*/,
-} from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Alert,
   Button,
@@ -12,36 +9,16 @@ import {
   Spinner,
   Form,
 } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-//import UserContext from '../containers/UserContext';
 import CartContext from '../containers/CartContext.js';
-import { deleteReview, createReview, getReview } from '../api/reviews';
+import { deleteReview, createReview } from '../api/reviews';
 import { Rating } from 'react-simple-star-rating';
-import axios from 'axios';
-import { setCommentRange } from 'typescript';
 export default function Review(event, item) {
-  //const { user } = useContext(UserContext);
   const { cart, setCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const navigate = useNavigate();
   const cartExample = JSON.parse(localStorage.getItem('cart'));
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await createReview({
-  //       cartId: "62e325f6bf131a3640c9430b",
-  //       score: 4,
-  //       comment: "Comentario de prueba 2",
-  //     });
-  //     const response = await getReview({ id: "62e325f6bf131a3640c9430b" });
-  //     setCart(response.data);
-  //   } catch {
-  //     alert("Ups! ocurrió un error");
-  //   }
-  // };
   async function onSubmit(e) {
     e.preventDefault();
     try {
@@ -67,18 +44,6 @@ export default function Review(event, item) {
       setError(error);
     }
   }
-  // async function addReview(event) {
-  //   event.preventDefault();
-  //   try {
-  //     await createReview({ id: cart.id });
-  //     const response = await deleteReview({ id: cart.id });
-  //     setCart(response.data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     setError(error);
-  //   }
-  // }
   const handleRating = (rate) => {
     setRating(rate);
   };
@@ -117,19 +82,9 @@ export default function Review(event, item) {
               <Card style={{ width: '30rem' }}>
                 <Card.Body>
                   <Card.Title>{' Deja tu reseña aqui '}</Card.Title>
-                  {
-                    // review stars here
-                  }
+                  {}
                   <Card.Text>
-                    <Form
-                    // onSubmit={function (event) {
-                    //   onSubmit(event, {
-                    //     rating: rating,
-                    //     comment: event.target.comment.value,
-                    //     cartId: cart.id,
-                    //   });
-                    // }}
-                    >
+                    <Form>
                       <div className="form-group">
                         <Rating
                           onClick={handleRating}
@@ -139,7 +94,7 @@ export default function Review(event, item) {
                           transition
                           fillColor="orange"
                           emptyColor="gray"
-                          className="justify-content-center" // Will remove the inline style if applied
+                          className="justify-content-center"
                         />
                         <textarea
                           className="form-control"
@@ -157,7 +112,6 @@ export default function Review(event, item) {
                         onClick={(event) => {
                           onSubmit(event);
                         }}
-                        // onClick={(e) => handleSubmit(e)}
                       >
                         Enviar
                       </Button>
