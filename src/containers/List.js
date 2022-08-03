@@ -91,7 +91,7 @@ export default function List() {
             key={item.id}
             style={{ flexBasis: '20%' }}
           >
-            <Card className="text-center my-3" style={{ width: '10rem' }}>
+            <Card className="text-center my-3" style={{ width: '12rem' }}>
               <Card.Img
                 style={{ objectFit: 'contain' }}
                 height="100px"
