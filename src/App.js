@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Routes, Route } from 'react-router-dom';
 
@@ -33,42 +33,42 @@ const About = React.lazy(() => import('./pages/About'));
 const Review = React.lazy(() => import('./pages/Review'));
 
 export default function App() {
-  const [invalidPage, setInvalidPage] = React.useState(false);
-  useEffect(() => {
-    const functioningRoutes = [
-      '/',
-      '/login',
-      '/login/clients',
-      '/login/producers',
-      `/about`,
-      `/contact`,
-      `/producers/:id`,
-      `/clients/:id`,
-      `/carts/:id`,
-      `/createProduct`,
-      `/payment-response`,
-      `/logout`,
-      `/cart`,
-      `/producers/profile/:id`,
-      `/clients/profile/:id`,
-      `/createProduct`,
-      `/logout`,
-      `/reviews/:id`,
-      `/reviews`,
-    ];
-    if (functioningRoutes.includes(window.location.pathname)) {
-      setInvalidPage(false);
-    } else {
-      setInvalidPage(true);
-    }
-  }, []);
+  // const [invalidPage, setInvalidPage] = React.useState(false);
+  // useEffect(() => {
+  //   const functioningRoutes = [
+  //     '/',
+  //     '/login',
+  //     '/login/clients',
+  //     '/login/producers',
+  //     `/about`,
+  //     `/contact`,
+  //     `/producers/:id`,
+  //     `/clients/:id`,
+  //     `/carts/:id`,
+  //     `/createProduct`,
+  //     `/payment-response`,
+  //     `/logout`,
+  //     `/cart`,
+  //     `/producers/profile/:id`,
+  //     `/clients/profile/:id`,
+  //     `/createProduct`,
+  //     `/logout`,
+  //     `/reviews/:id`,
+  //     `/reviews`,
+  //   ];
+  //   if (functioningRoutes.includes(window.location.pathname)) {
+  //     setInvalidPage(false);
+  //   } else {
+  //     setInvalidPage(true);
+  //   }
+  // }, []);
 
   return (
     <>
       <div className="App">
         <UserProvider>
           <CartProvider>
-            {!invalidPage && <Header />}
+            <Header />
             <Container className="container-app">
               <Row>
                 <Col>
@@ -166,7 +166,7 @@ export default function App() {
                   </React.Suspense>
                 </Col>
               </Row>
-              {!invalidPage && <Footer />}
+              <Footer />
             </Container>
           </CartProvider>
         </UserProvider>
