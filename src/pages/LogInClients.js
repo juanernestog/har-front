@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Alert, Button, Form, Spinner } from 'react-bootstrap';
+import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { createCart } from '../api/carts';
 
@@ -60,39 +60,42 @@ export default function LogIn() {
 
   return (
     <>
-      <div
+      {error && <Alert variant="danger">{error}</Alert>}
+
+      <Card
+        border="primary"
         style={{
           margin: 'auto',
           marginTop: '1rem',
           width: '30%',
-          border: '3px solid green',
           padding: '10px',
         }}
       >
-        <h2 className="my-4 text-center">Iniciar Sesión</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={onSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Escribe tu email"
-              name="email"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Escribe tu contraseña"
-              name="password"
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit" disabled={loading}>
-            Entrar
-          </Button>
-        </Form>
-      </div>
+        <Card.Body>
+          <Card.Title>Iniciar Sesión</Card.Title>
+          <Form onSubmit={onSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Escribe tu email"
+                name="email"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Escribe tu contraseña"
+                name="password"
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" disabled={loading}>
+              Entrar
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
     </>
   );
 }
