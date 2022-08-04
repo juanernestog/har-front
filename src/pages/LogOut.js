@@ -1,19 +1,26 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CartContext from '../containers/CartContext';
+import { deleteCart } from '../api/carts';
 
+import CartContext from '../containers/CartContext';
 import UserContext from '../containers/UserContext';
 
 export default function LogOut() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const { setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
+    async function removeCart() {
+      await deleteCart({ id: cart.id });
+    }
+    cart && removeCart();
     setUser(null);
     setCart(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
     navigate('/login');
-  }, [navigate, setUser, setCart]);
+  }, [navigate, setUser, cart, setCart]);
 
   return null;
 }

@@ -30,12 +30,19 @@ export default function List() {
       });
       const response = await getCart({ id: cart.id });
       setCart(response.data);
+      localStorage.setItem('cart', JSON.stringify(response.data));
     } else {
       navigate('/login');
     }
   }
 
-  let items = [<Pagination.Prev key="prev" />];
+  let items = [
+    <Pagination.Prev
+      key="prev"
+      disabled={page === 1}
+      onClick={() => setPage(page - 1)}
+    />,
+  ];
   let active = meta?.page;
   for (let number = 1; number <= meta?.pages; number++) {
     items.push(
@@ -48,7 +55,13 @@ export default function List() {
       </Pagination.Item>,
     );
   }
-  items.push(<Pagination.Next key="next" />);
+  items.push(
+    <Pagination.Next
+      key="next"
+      disabled={page === meta?.pages}
+      onClick={() => setPage(page + 1)}
+    />,
+  );
 
   if (loading) {
     return (
@@ -74,11 +87,11 @@ export default function List() {
       <div className="d-flex flex-wrap justify-content-around mb-3 mt-3">
         {data.map((item) => (
           <div
-            className="d-flex justify-content-center"
+            className="d-flex justify-content-center product-card"
             key={item.id}
             style={{ flexBasis: '20%' }}
           >
-            <Card className="text-center my-3" style={{ width: '10rem' }}>
+            <Card className="text-center my-3" style={{ width: '12rem' }}>
               <Card.Img
                 style={{ objectFit: 'contain' }}
                 height="100px"

@@ -54,8 +54,7 @@ export function createProduct(payload) {
   });
 }
 
-export function updateProduct(payload) {
-  const { id } = payload;
+export function updateProduct(id, payload) {
   return http.put(`/products/${id}`, payload).then((response) => {
     const { data: json } = response;
     return {

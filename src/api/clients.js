@@ -20,8 +20,12 @@ export async function logIn({ email, password }) {
       localStorage.setItem('token', json.meta.token);
     }
 
+    const user = transformClient(json.data);
+
+    localStorage.setItem('user', JSON.stringify(user));
+
     return {
-      data: transformClient(json.data),
+      data: user,
     };
   });
 }
@@ -41,4 +45,22 @@ export async function getClient({ id }) {
   return {
     data: transformClient(json.data),
   };
+}
+
+export async function updateClient(id, payload) {
+  return http.put(`/clients/${id}`, payload).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformClient(json.data),
+    };
+  });
+}
+
+export async function deleteClient({ id }) {
+  return http.delete(`/clients/${id}`).then((response) => {
+    const { data: json } = response;
+    return {
+      data: transformClient(json.data),
+    };
+  });
 }

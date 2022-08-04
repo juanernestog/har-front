@@ -24,8 +24,12 @@ export async function logIn({ email, password }) {
       localStorage.setItem('token', json.meta.token);
     }
 
+    const user = transformProducer(json.data);
+
+    localStorage.setItem('user', JSON.stringify(user));
+
     return {
-      data: transformProducer(json.data),
+      data: user,
     };
   });
 }

@@ -1,5 +1,5 @@
 import { ErrorMessage, Formik } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Alert,
   Button,
@@ -9,20 +9,21 @@ import {
   Row,
   Spinner,
 } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { signUp } from '../api/clients';
+import { updateClient } from '../api/clients';
+import UserContext from '../containers/UserContext';
 
 const profileSchema = Yup.object({
   firstname: Yup.string().required(),
   lastname: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().required(),
   tel: Yup.string().required(),
 });
 
-export default function SignUp() {
+export default function EditProfileClient() {
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,12 +33,13 @@ export default function SignUp() {
     try {
       setError('');
       setLoading(true);
-      await signUp(values);
-      navigate('/');
-      setSubmitting(false);
+      const response = await updateClient(user.id, values);
+      setUser(response.data);
+      navigate(`/clients/${user.id}`);
     } catch (error) {
-      console.log(error);
+      setError(error);
     } finally {
+      setSubmitting(false);
       setLoading(false);
     }
   }
@@ -62,13 +64,18 @@ export default function SignUp() {
 
   return (
     <>
-      <h2 className="my-4">Registrarse como cliente</h2>
+      <h2 className="my-4">Editar perfil</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Container>
         <Row>
           <Col sm={6}>
             <Formik
-              initialValues={{}}
+              initialValues={{
+                firstname: user.firstname,
+                lastname: user.lastname,
+                tel: user.tel,
+                email: user.email,
+              }}
               onSubmit={onSubmit}
               validationSchema={profileSchema}
             >
@@ -144,21 +151,6 @@ export default function SignUp() {
                       component="div"
                     />
                   </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Escribe tu contraseña"
-                      name="password"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                      required
-                      className={
-                        touched.password && errors.password ? 'is-invalid' : ''
-                      }
-                    />
-                  </Form.Group>
                   <ErrorMessage
                     name="password"
                     className="invalid-feedback"
@@ -187,7 +179,14 @@ export default function SignUp() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Submit
+                    Actualizar
+                  </Button>
+                  <Button
+                    as={Link}
+                    to={`/clients/${user.id}`}
+                    variant="outline-primary mx-3"
+                  >
+                    Cancelar
                   </Button>
                 </Form>
               )}
