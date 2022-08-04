@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Alert, Spinner } from 'react-bootstrap';
+import { Alert, Card, Spinner } from 'react-bootstrap';
 import CartContext from '../containers/CartContext';
 import { createCart } from '../api/carts';
 import UserContext from '../containers/UserContext';
@@ -64,21 +64,26 @@ export default function PaymentResponse() {
   return (
     <>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div
+
+      <Card
+        border="primary"
         style={{
           margin: 'auto',
           marginTop: '1rem',
           width: '50%',
-          border: '3px solid green',
           padding: '10px',
           textAlign: 'center',
         }}
       >
-        <h2>Información de la compra</h2>
-        <p>{data?.data?.x_fecha_transaccion}</p>
-        <p>La transacción ha sido {data?.data?.x_response}</p>
-        <p>Valor en COP ${data?.data?.x_amount}</p>
-      </div>
+        <Card.Body>
+          <Card.Title>Información de la compra</Card.Title>
+          <Card.Text>
+            <p>{data?.data?.x_fecha_transaccion}</p>
+            <p>La transacción ha sido {data?.data?.x_response}</p>
+            <p>Valor en COP ${data?.data?.x_amount}</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </>
   );
 }
