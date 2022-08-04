@@ -71,3 +71,16 @@ export function deleteProduct({ id }) {
     };
   });
 }
+
+// export function deleteProduct({ id }, confirm = true) {
+//   if (confirm) {
+//     return http.delete(`/products/${id}`).then((response) => {
+//       const { data: json } = response;
+//       return {
+//         data: transformProduct(json.data),
+//       };
+//     });
+//   } else {
+//     return Promise.resolve({ data: null });
+//   }
+// }
