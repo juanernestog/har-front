@@ -14,7 +14,7 @@ import { deleteProducer } from '../api/producers';
 import { deleteProduct } from '../api/products';
 import UserContext from '../containers/UserContext';
 import useProfile from '../hooks/useProfileProducers';
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 
 export default function ProducerProfile() {
   const { id } = useParams();
