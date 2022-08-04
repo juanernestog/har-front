@@ -87,7 +87,6 @@ export default function Cart() {
         external: 'false',
 
         //Atributos opcionales
-        confirmation: 'http://secure2.payco.co/prueba_curl.php',
         response: `${process.env.REACT_APP_BASE_URL}/payment-response`,
 
         //Atributos cliente
