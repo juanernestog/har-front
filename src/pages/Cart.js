@@ -71,14 +71,14 @@ export default function Cart() {
 
   async function pay(event) {
     event.preventDefault();
-    swal('Desea proceder con el pago?', {
-      buttons: ['Cancelar', 'Proceder'],
-    }).then((value) => {
-      if (!value) {
-        swal('Cancelado', 'Pago cancelado', 'info');
-        return;
-      }
-    });
+    // swal('Desea proceder con el pago?', {
+    //   buttons: ['Cancelar', 'Proceder'],
+    // }).then((value) => {
+    //   if (!value) {
+    //     swal('Cancelado', 'Pago cancelado', 'info');
+    //     return;
+    //   }
+    // });
     try {
       const handler = window.ePayco.checkout.configure({
         key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
