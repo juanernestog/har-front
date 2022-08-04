@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { createCart } from '../api/carts';
+import swal from 'sweetalert';
 
 import { logIn } from '../api/clients';
 import CartContext from '../containers/CartContext';
@@ -35,8 +36,10 @@ export default function LogIn() {
       setCart(cart.data);
       localStorage.setItem('cart', JSON.stringify(cart.data));
       navigate(`/`);
+      swal('Exito', 'Sesión iniciada', 'success');
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
+      swal('Error', error.message, 'error');
     }
   }
 

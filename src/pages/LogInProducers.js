@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Alert, Button, Card, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 import { logIn } from '../api/producers';
 import UserContext from '../containers/UserContext';
@@ -25,8 +26,10 @@ export default function LogIn() {
       dispatch({ type: 'FULLFILLED' });
       setUser(json.data);
       navigate(`/producers/${json.data.id}`);
+      swal('Exito', 'Sesión iniciada', 'success');
     } catch (error) {
       dispatch({ type: 'REJECTED', payload: error });
+      swal('Error', error.message, 'error');
     }
   }
 

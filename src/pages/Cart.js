@@ -12,6 +12,7 @@ import { deleteCartItem } from '../api/cartItems';
 import { getCart, updateCart } from '../api/carts';
 import CartContext from '../containers/CartContext';
 import UserContext from '../containers/UserContext';
+import swal from 'sweetalert';
 
 export default function Cart() {
   const { user } = useContext(UserContext);
@@ -52,17 +53,32 @@ export default function Cart() {
     setLoading(true);
     const actualCart = cart;
     actualCart.address = event.target.address.value;
-    await setCart(actualCart);
-    await updateCart({
-      id: cart.id,
-      address: event.target.address.value,
-      total: total,
-    });
-    setLoading(false);
+    try {
+      await setCart(actualCart);
+      await updateCart({
+        id: cart.id,
+        address: event.target.address.value,
+        total: total,
+      });
+      setLoading(false);
+      swal('Exito', 'Dirección actualizada', 'success');
+    } catch (error) {
+      setLoading(false);
+      swal('Error', error, 'error');
+      setError(error);
+    }
   }
 
   async function pay(event) {
     event.preventDefault();
+    // swal('Desea proceder con el pago?', {
+    //   buttons: ['Cancelar', 'Proceder'],
+    // }).then((value) => {
+    //   if (!value) {
+    //     swal('Cancelado', 'Pago cancelado', 'info');
+    //     return;
+    //   }
+    // });
     try {
       const handler = window.ePayco.checkout.configure({
         key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
@@ -101,6 +117,7 @@ export default function Cart() {
       });
     } catch (error) {
       setError(error);
+      swal('Error', error, 'error');
     }
   }
 

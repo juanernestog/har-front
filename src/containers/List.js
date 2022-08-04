@@ -13,6 +13,7 @@ import { createCartItem } from '../api/cartItems';
 import { getCart } from '../api/carts';
 import useProducts from '../hooks/useProducts';
 import CartContext from './CartContext';
+import swal from 'sweetalert';
 
 export default function List() {
   const [page, setPage] = useState(1);
@@ -23,14 +24,21 @@ export default function List() {
   async function onSubmit(event, item) {
     event.preventDefault();
     if (cart) {
-      await createCartItem({
-        quantity: event.target.quantity.value,
-        cartId: cart.id,
-        productId: item.id,
-      });
-      const response = await getCart({ id: cart.id });
-      setCart(response.data);
-      localStorage.setItem('cart', JSON.stringify(response.data));
+      try {
+        await createCartItem({
+          quantity: event.target.quantity.value,
+          cartId: cart.id,
+          productId: item.id,
+        });
+        const response = await getCart({ id: cart.id });
+        setCart(response.data);
+        localStorage.setItem('cart', JSON.stringify(response.data));
+        swal('Exito', 'Producto agregado al carrito', 'success');
+      } catch (error) {
+        swal('Error', error.message, 'error').then((value) => {
+          navigate('/');
+        });
+      }
     } else {
       navigate('/login');
     }

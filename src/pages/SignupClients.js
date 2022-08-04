@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import swal from 'sweetalert';
 
 import { signUp } from '../api/clients';
 
@@ -35,8 +36,11 @@ export default function SignUp() {
       await signUp(values);
       navigate('/');
       setSubmitting(false);
+      swal('Exito', 'Usuario creado', 'success');
     } catch (error) {
       console.log(error);
+      setError(error);
+      swal('Error', 'Error al crear usuario', 'error');
     } finally {
       setLoading(false);
     }

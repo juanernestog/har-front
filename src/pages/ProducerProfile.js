@@ -14,6 +14,7 @@ import { deleteProducer } from '../api/producers';
 import { deleteProduct } from '../api/products';
 import UserContext from '../containers/UserContext';
 import useProfile from '../hooks/useProfileProducers';
+import swal from 'sweetalert';
 
 export default function ProducerProfile() {
   const { id } = useParams();
@@ -23,7 +24,25 @@ export default function ProducerProfile() {
 
   async function removeProduct(event, id) {
     event.preventDefault();
-    await deleteProduct({ id });
+    // await deleteProduct({ id });
+    let confirm;
+    swal('Confirmación', '¿Está seguro de eliminar el producto?', 'warning', {
+      buttons: ['Cancelar', 'Eliminar'],
+    }).then(async (value) => {
+      confirm = value;
+      try {
+        console.log(confirm);
+        await deleteProduct({ id }, confirm);
+        if (confirm) {
+          swal('Exito', 'Producto eliminado', 'success');
+        } else {
+          swal('Cancelado', 'Producto no eliminado', 'error');
+        }
+        // navigate(`/producers/${id}`);
+      } catch (error) {
+        swal('Error', error.message, 'error');
+      }
+    });
   }
 
   async function deleteAccount(event, id) {
@@ -124,6 +143,7 @@ export default function ProducerProfile() {
                           variant="danger"
                           onClick={function (event) {
                             removeProduct(event, item.id);
+                            setShow(false);
                           }}
                         >
                           Eliminar
